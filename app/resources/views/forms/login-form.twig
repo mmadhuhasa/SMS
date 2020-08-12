@@ -1,0 +1,46 @@
+  <div id="login_overlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="img/preloader.gif" style="width:64px;margin:20px auto;"/>
+					<h3 style="margin-bottom: 10px;"><strong>Authenticating...</strong></h3>
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+					
+											<div id="loginScope" style="display:block;">
+												<h4 class="heading-primary text-uppercase mb-md center" style="font-size: 1.3em;font-weight:600;">I'm a Returning Customer</h4><hr>
+												<form action="{{ base_url() }}/login_controller" name="loginForm" class="loginForm" method="POST">
+													<div class="row">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label>E-mail Address</label>
+																<input type="email" name="email" class="form-control input-lg" required>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="form-group">
+															<div class="col-md-12">
+																<a class="pull-right" href="#">(Lost Password?)</a>
+																<label>Password</label>
+																<input type="password" name="password" class="form-control input-lg" required>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-6">
+															<span class="remember-box checkbox">
+																<label for="rememberme">
+																	<input type="checkbox" id="rememberme" name="rememberme">Remember Me
+																</label>
+															</span>
+														</div>
+														<div class="col-md-6">
+															<input type="submit" value="Login" class="btn btn-primary pull-right mb-xl" data-loading-text="Loading...">
+														</div>
+													</div>
+												</form>
+												<p class="sign-up-info">Don't have an account yet? <a href="{{base_url()}}/login" id="headerSignUp" class="p-none m-none ml-xs">Sign Up</a></p>
+											</div>
+											</div>
+											
+											

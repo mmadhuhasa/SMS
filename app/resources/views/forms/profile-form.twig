@@ -1,0 +1,90 @@
+  <div id="profileOverlay" style="display:none;">
+					<div style="margin: 60px;padding:30px; text-align: center;">
+					<img src="{{ base_url() }}/img/loading.gif" style="margin: 20px;"/>
+					<h3><strong>Updating Profile</strong></h3>
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+<form method="POST" class="form-horizontal form-bordered" name="profileForm" id="profileForm" action="{{base_url()}}/users/update" style="margin: 10px 20px 10px 20px;">
+ <input type="hidden" value="{{user.user_id}}" name="user_id" id="user_id">								
+<input type="hidden" value="" name="phone" id="phone">
+<input type="hidden" value="{{user.status}}" name="status" id="status">
+<input type="hidden" value="{{user.role_id}}" name="role_id" id="role_id">
+<input type="hidden" value="{{user.description}}" name="description" id="description">
+{% if page.admin_mode %}
+ <input type="hidden" value="{{admin_mode}}" name="admin_mode" id="admin_mode">
+            {% endif %}
+
+<div class="row" style="margin-top:10px;">
+<div class="col-md-6" style="padding-right:20px;">
+<div class="form-group">
+<h5>First Name</h5>
+<input class="form-control" value="{{user.first_name}}" name="first_name" id="first_name" type="text">
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group">
+<h5>Last Name</h5>
+<input class="form-control" value="{{user.last_name}}" name="last_name" id="last_name" type="text">
+</div>
+</div>
+</div>
+
+<div class="row" style="margin-top:10px;">
+<div class="col-md-6" style="padding-right:20px;">
+<div class="form-group">
+<h5>Email Address</h5>
+<input class="form-control" value="{{user.email}}" name="email" id="email"  type="email" readonly>
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group">
+<h5>Select Country</h5>
+<select data-plugin-selectTwo class="form-control populate" name="country">
+{% if user.country %} 
+<option value="{{user.country}}">{{user.country}}</option>	
+			{% endif %}
+			<option label="blank">Select a country</option>
+									
+	{% if page.countries %}
+            {% for comp_row in page.countries %}
+			<option value="{{comp_row.name}}">{{comp_row.name}}</option>
+			{% endfor %}
+            {% endif %}
+	</select>
+</div>
+</div>
+</div>
+
+{% if page.admin_mode %}
+<div class="row" style="margin-top:10px;">
+<div class="col-md-12" style="padding-right:20px;">
+<div class="form-group">
+<h5>Status</h5>
+			<select data-plugin-selectTwo class="form-control populate" name="status">
+{% if comp_row.status %} 
+<option value="{{comp_row.status}}">{{comp_row.status}}</option>	
+			{% endif %}
+			<option label="blank">Select status</option>
+									
+	{% if comp_row.status == "Active" %}
+			<option value="Active">Active</option>
+			<option value="Pending">Pending</option>
+            {% else %}
+            <option value="Pending">Pending</option>
+            <option value="Active">Active</option>
+            {% endif %}
+	</select>
+</div>
+</div>
+</div>
+{% endif %}
+
+
+
+<div class="row" style="margin-top:20px;margin-left:2px;">
+<div class="form-group">
+<button type="submit" class="btn btn-3d btn-primary btn-lg"> <i class="fa fa-arrow-circle-right"></i> Save Changes</button>
+ </div> </div>
+ 
+ </form>

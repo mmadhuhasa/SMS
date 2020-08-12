@@ -1,0 +1,187 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/multi-select/css/multi-select.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+       <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Register New Teacher</h2>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="{{ base_url() }}/admin-dashboard"><i class="icon-home"></i></a></li>                           
+                             <li class="breadcrumb-item"><a href="{{ base_url() }}/manage-teachers"> Teachers</a></li>
+                            <li class="breadcrumb-item active">Register</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                       
+                    </div>
+                </div>
+            </div>
+
+    <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Teacher Details</h2>
+                        </div>
+                        <div class="body">
+                            <form id="basic-form" method="post" novalidate>
+				<div class="row">
+                    <div class="col-lg-3 col-md-12 col-sm-12">                        
+                     <div class="">
+					 <label>Upload Photo</label>
+                            <input type="file" class="dropify" data-allowed-file-extensions="jpg png">
+                        </div>
+                    </div>            
+                    <div class="col-lg-9 col-md-12 col-sm-12">
+					  	<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                    </div>
+                </div>
+								
+                         <div class="form-group">
+                                    <label>Designation</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+								
+					<div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Select Gender</label>
+                                    <!--<select class="form-control show-tick ms select2" data-placeholder="Select">
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </select>-->
+                                        <select class="form-control" data-placeholder="Select">
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </select>
+                                </div>
+                    </div>            
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input type="text" class="form-control">
+                                        <div class="input-group-append">                                            
+                                            <button class="btn btn-outline-secondary" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+					<div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Religion</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                    </div>     
+                    </div>
+				
+                    </div>
+                </div>
+				
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Mobile Number</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>E-Mail</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                    </div>
+                </div>
+				
+				
+				<div class="row">
+				<div class="col-lg-6 col-md-12 col-sm-12">
+					   <div class="form-group">
+                                    <label>Full Address</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+								 </div>
+								
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                         <div class="form-group">
+                                    <label>Joining Date</label>
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input type="text" class="form-control">
+                                        <div class="input-group-append">                                            
+                                            <button class="btn btn-outline-secondary" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>           
+                                        
+				</div>
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                    </div>
+                </div>
+				<br>
+						<button type="submit" class="btn btn-primary">Add Teacher</button>
+                            </form>
+				
+                                
+                        </div>
+						
+                    </div>
+                </div>
+            </div>
+			
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<script>
+$('.select2').select2();
+</script> 
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

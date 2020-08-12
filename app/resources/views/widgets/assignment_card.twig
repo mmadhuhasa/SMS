@@ -1,0 +1,59 @@
+<div class="card">
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="receipt-left">
+
+                                     {% if page.data.faculty_image %}
+                                      <img class="img-fluid" src="{{page.data.faculty_image}}" style="width: 71px; border-radius: 43px;">
+                                      {% else %}
+                                       <img class="img-fluid" src="{{ base_url() }}/images/user.png" style="width: 71px; border-radius: 43px;">
+                                       {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 text-right">
+                                    <img class="img-fluid" src="{{ base_url() }}/images/logo.png" style="width: 71px; border-radius: 43px;">
+                                    <p class="mb-0"><b>Class :</b> {{page.data.class_name}}</p>
+                                     <p class="mb-0"><b>Subject :</b> {{page.data.subject_name}}</p>
+                                    <p class="mb-0">Max. Marks:  {{page.data.class_name}}</p>
+                                    <p class="mb-0">Last Submission:  {{page.data.date_submission}}</p>
+                                </div>
+                            </div>                    
+                            <div class="row clearfix">                                
+                                <div class="col-lg-8 col-md-12">
+                                    <h6>{{page.data.faculty_name}} <small>&nbsp; | &nbsp; #{{page.data.qcode}} </small></h6>
+                                   
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-left">
+                                    <h5>{{page.data.title}} </h5>
+                                </div>
+                            </div>    
+                            
+                            {% if page.showAttachments %}
+                            <div class="table-responsive" style="display:block;">
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Attachments</th>
+                                            <th class="text-right">Size</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-md-9">Project Abstract</td>
+                                            <td class="col-md-3 text-right"><i class="fa fa-inr"></i> 15 KB <a href="">Download</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
+                            {% endif %}
+                            <div class="row clearfix">
+                                <div class="col-lg-8 col-md-12">
+                                    <p class="mb-0"><b>Date :</b> 15 May 2018</p>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                </div>
+                            </div>
+                              
+                        </div>
+                    </div>

@@ -1,0 +1,77 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block appnav %}
+{% endblock %}
+
+{% block content %}
+<div class="vertical-align-wrap">
+			<div class="vertical-align-middle auth-main" style="background:url({{ base_url() }}/images/bg-home.jpg) no-repeat top left fixed">
+				<div class="auth-box">
+                    <div class="top">
+                        <img src="{{ base_url() }}/images/logo.png" alt="Talank School Automation System">
+                    </div>
+					<div class="card">
+                        <div class="body">
+                            <form class="form-auth-small" name="loginForm" id="loginForm" action="{{ base_url() }}/auth/login" method="POST">
+                            <div class="text-left">
+                            <p class="lead" style="margin-bottom:20px;font-weight:600;">Login to your account</p>
+                            </div>
+                            
+                            
+                                <div class="form-group">
+                                    <label for="signin-email" class="control-label sr-only">Email</label>
+                                    <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                            <input type="email" name="email" class="form-control" id="email" value="admin@gmail.com" placeholder="Enter Email or username" required>
+                                        </div>
+                                        
+                                </div>
+                                <div class="form-group">
+                                    <label for="signin-password" class="control-label sr-only">Password</label>
+                                    <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                            </div>
+                                            <input name="password" type="password" class="form-control" id="signin-password" value="12345678" placeholder="Enter your Password" required>
+                                        </div>
+
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="fancy-checkbox element-left">
+                                        <input type="checkbox">
+                                        <span>Remember me</span>
+                                    </label>								
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+                                <div class="bottom">
+                                    <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="#">Forgot password?</a></span>
+                                    <span>Looking for a demo? <a href="{{ base_url() }}/demo-login">Access Demo Mode</a></span>
+                                </div>
+                            </form>
+                            
+                              <div id="login_overlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:32px;margin:10px auto;"/>
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Authenticating...</strong></h5>
+					<p>Please wait...</p>
+					</div>					
+					</div>
+					
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/app.js"></script>
+<script src="{{ base_url() }}/scripts/front_script.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+{% endblock %}

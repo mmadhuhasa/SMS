@@ -1,0 +1,215 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/fixedeader/dataTables.fixedcolumns.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/fixedeader/dataTables.fixedheader.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+<link rel="stylesheet" href="{{ base_url() }}/assets/css/blog.css">
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>E-Learning Center</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item">Post Detail</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        <a href="{{ base_url() }}/create-post"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> <span>Add New E-Content</span></button></a>
+                    </div>
+                </div>
+            </div>
+            
+<!--- START CONTENT--->   
+   <div class="row clearfix">
+                <div class="col-lg-8 col-md-12 left-box">
+                    <div class="card single_post">
+                        <div class="body">
+                            <div class="img-post">
+                                <img class="d-block img-fluid" src="{{ base_url() }}/assets/images/posts/econtent.jpg" alt="First slide">
+                            </div>
+                            <h3><a href="#">Post Title</a></h3>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        </div>                        
+                    </div>
+                    <div class="card">
+                            <div class="header">
+                                <h2>Comments 3</h2>
+                            </div>
+                            <div class="body">
+                                <ul class="comment-reply list-unstyled">
+                                    <li class="row clearfix">
+                                        <div class="icon-box col-md-2 col-4"><img class="img-fluid img-thumbnail" src="{{ base_url() }}/assets/images/avatar.jpg" alt="Awesome Image"></div>
+                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
+                                            <h5 class="m-b-0">Gigi Hadid </h5>
+                                            <p>Why are there so many tutorials on how to decouple WordPress? how fast and easy it is to get it running (and keep it running!) and its massive ecosystem. </p>
+                                            <ul class="list-inline">
+                                                <li><a href="javascript:void(0);">Mar 09 2018</a></li>
+                                                <li><a href="javascript:void(0);">Reply</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="row clearfix">
+                                        <div class="icon-box col-md-2 col-4"><img class="img-fluid img-thumbnail" src="{{ base_url() }}/assets/images/avatar.jpg" alt="Awesome Image"></div>
+                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
+                                            <h5 class="m-b-0">Christian Louboutin</h5>
+                                            <p>Great tutorial but few issues with it? If i try open post i get following errors. Please can you help me?</p>
+                                            <ul class="list-inline">
+                                                <li><a href="javascript:void(0);">Mar 12 2018</a></li>
+                                                <li><a href="javascript:void(0);">Reply</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="row clearfix">
+                                        <div class="icon-box col-md-2 col-4"><img class="img-fluid img-thumbnail" src="{{ base_url() }}/assets/images/avatar.jpg" alt="Awesome Image"></div>
+                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
+                                            <h5 class="m-b-0">Kendall Jenner</h5>
+                                            <p>Very nice and informative article. In all the years I've done small and side-projects as a freelancer, I've ran into a few problems here and there.</p>
+                                            <ul class="list-inline">
+                                                <li><a href="javascript:void(0);">Mar 20 2018</a></li>
+                                                <li><a href="javascript:void(0);">Reply</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>                                        
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="header">
+                                <h2>Leave a reply <small>Your email address will not be published. Required fields are marked*</small></h2>
+                            </div>
+                            <div class="body">
+                                <div class="comment-form">
+                                    <form class="row clearfix">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Your Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Email Address">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-block btn-primary">SUBMIT</button>
+                                        </div>                                
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-4 col-md-12 right-box">
+                    <div class="card">
+                        <div class="body search">
+                            <div class="input-group m-b-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-magnifier"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Search...">                                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Categories</h2>
+                        </div>
+                        <div class="body widget">
+                            <ul class="list-unstyled categories-clouds m-b-0">
+                                <li><a href="javascript:void(0);">Science</a></li>
+                                <li><a href="javascript:void(0);">Information Technologies</a></li>
+                                <li><a href="javascript:void(0);">Robotics</a></li>
+                                <li><a href="javascript:void(0);">Nature</a></li>
+                                <li><a href="javascript:void(0);">English Literature</a></li>
+                                <li><a href="javascript:void(0);">Personality Development</a></li>
+                                <li><a href="javascript:void(0);">Weekly Blog</a></li>
+                                <li><a href="javascript:void(0);">Informations</a></li>
+                                <li><a href="javascript:void(0);">Xpress Bloggers</a></li>
+                                <li><a href="javascript:void(0);">Student Press</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Popular Posts</h2>                        
+                        </div>
+                        <div class="body widget popular-post">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="single_post">
+                                        <p class="m-b-0">Apple Introduces Search Ads Basic</p>
+                                        <span>jun 22, 2018</span>
+                                        <div class="img-post">
+                                            <img src="../assets/images/blog/blog-page-2.jpg" alt="Awesome Image">                                        
+                                        </div>                                            
+                                    </div>
+                                    <div class="single_post">
+                                        <p class="m-b-0">new rules, more cars, more races</p>
+                                        <span>jun 8, 2018</span>
+                                        <div class="img-post">
+                                            <img src="../assets/images/blog/blog-page-3.jpg" alt="Awesome Image">                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Latest Posts</h2>
+                        </div>
+                        <div class="body widget">
+                            <ul class="list-unstyled instagram-plugin m-b-0">
+                                <li><a href="javascript:void(0);"><img src="../assets/images/blog/05-img.jpg" alt="image description"></a></li>
+                                <li><a href="javascript:void(0);"><img src="../assets/images/blog/06-img.jpg" alt="image description"></a></li>
+                                <li><a href="javascript:void(0);"><img src="../assets/images/blog/07-img.jpg" alt="image description"></a></li>
+                                <li><a href="javascript:void(0);"><img src="../assets/images/blog/08-img.jpg" alt="image description"></a></li>
+                                <li><a href="javascript:void(0);"><img src="../assets/images/blog/09-img.jpg" alt="image description"></a></li>
+                                <li><a href="javascript:void(0);"><img src="../assets/images/blog/10-img.jpg" alt="image description"></a></li>
+                                <li><a href="javascript:void(0);"><img src="../assets/images/blog/11-img.jpg" alt="image description"></a></li>
+                                <li><a href="javascript:void(0);"><img src="../assets/images/blog/12-img.jpg" alt="image description"></a></li>
+                                <li><a href="javascript:void(0);"><img src="../assets/images/blog/13-img.jpg" alt="image description"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Email Newsletter <small>Get alerts when we post something relevant to your interest. Subscribe to receive notifications in your alert box.</small></h2>
+                        </div>
+                        <div class="body widget newsletter">                        
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter Email">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="icon-paper-plane"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--- END CONTENT -->             
+
+				
+			</div>	
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/app.js"></script>
+<script src="{{ base_url() }}/scripts/list_topics.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

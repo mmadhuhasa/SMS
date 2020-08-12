@@ -1,0 +1,108 @@
+<div class="row">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label>Select Offseting Project</label>
+																<select data-plugin-selectTwo class="form-control populate" name="sel_project" id="sel_project">
+													<option value="">Choose a project</option>	
+													{% if page.projects %}
+													{% for iacs in page.projects %}
+														<option value="{{iacs.id}}">{{iacs.title}}</option>
+	                                                {% endfor %}
+													{% endif %}
+													</select>	
+													
+															</div>
+														</div>
+													</div>
+													
+
+	<div id="offsetZone" style="display:none;">
+	<div class="row" style="margin-top:10px;">
+														<div class="form-group">
+															<div class="col-md-12">
+															    	<label>Amount of CO2 (in <span class="unitNameSpan">Unit</span>)</label>
+															    <div class="input-group mb-md">
+														<span class="input-group-addon btn-success"><i class="fa fa-check-circle"></i></span>
+															<input type="number" name="inputCo2Amount" id="inputCo2Amount" value="{% if page.offset %}{{page.offset}}{% endif %}" class="form-control">
+															
+													</div>
+													
+															
+															</div>
+														</div>
+													</div>
+													
+																										
+														<div class="row" style="margin-top:10px;margin-bottom:10px;">
+														<div class="form-group lg">
+															<div class="col-md-6">
+															    	<input type="hidden" name="unitProjectPrice" id="unitProjectPrice" placeholder="Price per k.g" class="form-control" readonly>
+															
+																<label>Price Per <span class="unitAmountSpan">100</span> <span class="unitNameSpan">Unit</span> of Carbon</label>
+																
+					  <div class="input-group mb-md">
+														<span class="input-group-addon btn-success"> € </span>
+															<input type="number" name="unitPerHundredProjectPrice" id="unitPerHundredProjectPrice" placeholder="Select a project first" class="form-control" readonly>
+															
+															
+													</div>										
+															
+																</div>
+															<div class="col-md-6">
+															<label>Price to pay</label>
+																
+																<div class="input-group mb-md">
+															<span class="input-group-addon btn-success"> € </span>
+														<input type="text" name="inputPriceToPay" id="inputPriceToPay" class="form-control" placeholder="Price to pay" readonly>
+													
+													</div>	</div>
+														</div>
+													</div>
+													
+	</div>											
+													
+		{% if (session.userID > 0) or session.email or session.first_name %}
+			<div class="row" style="margin-top:10px;"><div class="form-group"><div class="col-md-12">
+			<label style="color:#777;font-family: "Open Sans", Arial, sans-serif;font-size: 14px;">Hi {{session.first_name}}! We will send you a confirmation at {{session.email}}.</label>
+				<input type="hidden" name="firstName" value="{% if session.first_name %}{{session.first_name}}{% endif %}	" class="form-control" required>
+				<input type="hidden" name="lastName" value="{% if session.last_name %}{{session.last_name}}{% endif %}" class="form-control">
+			<input name="email" type="hidden" value="{% if session.email %}{{session.email}}{% endif %}" class="form-control" required>																																																			</div></div></div>
+		{% else %}
+			<div class="row" style="margin-top:10px;">
+														<div class="form-group">
+															<div class="col-md-6">
+																<label>First Name</label>
+																<input type="text" name="firstName" value="{% if session.first_name %}{{session.first_name}}{% endif %}	" class="form-control" required>
+															</div>
+															<div class="col-md-6">
+																<label>Last Name</label>
+																<input type="text" name="lastName" value="{% if session.last_name %}{{session.last_name}}{% endif %}" class="form-control">
+															</div>
+														</div>
+													</div>
+													
+													<div class="row" style="margin-top:10px;">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label>E-mail Address</label>
+																<input name="email" type="email" value="{% if session.email %}{{session.email}}{% endif %}" class="form-control" required>
+															</div>
+														</div>
+													</div>
+		{% endif %}
+													
+												
+												
+														<div class="row" style="margin-top:10px;">
+															<div class="col-md-12">
+															<div class="checkbox">
+														<label>
+															<input type="checkbox" name="sendCertificate" id="sendCertificate" value="1">
+															Tick this if you want to receive Carbon certificate to your email address.
+														</label>
+													</div>
+														
+														</div>
+													</div>
+													
+													

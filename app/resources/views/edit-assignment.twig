@@ -1,0 +1,185 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/multi-select/css/multi-select.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+       <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Edit Assignment</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}/admin-dashboard"><i class="icon-home"></i></a></li>                            
+                             <li class="breadcrumb-item"><a href="{{ base_url() }}/manage-assignments">Manage Assignments</a></li>
+                            <li class="breadcrumb-item active">Edit Assignment</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        
+                    </div>
+                </div>
+            </div>
+
+                       <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Assignment Details</h2>
+                        </div>
+                        <div class="body">
+                            <form class="form-auth-small" name="updateAssignmentForm" id="updateAssignmentForm" action="{{ base_url() }}/apis/assignments/update" method="POST" novalidate>
+							 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Title</label>
+                                     <input type="hidden" name="item_id" value="{{page.data.id}}"/>
+                                    <input type="text" name="title" class="form-control" value="{{page.data.title}}" required>
+                                       <input type="hidden" name="user_id" value="{{session.userID}}"/>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                         <div class="form-group">
+                                    <label>Deadline</label>
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker" required>
+                                        <input type="text" name="date_submission" value="{{page.data.date_submission}}" class="form-control" readonly>
+                                        <div class="input-group-append">                                            
+                                            <button class="btn btn-outline-secondary" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>  
+                </div>
+			
+				
+				
+				<div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                            <label>Select Class</label>
+                                     <select class="form-control" name="class_id" data-placeholder="Select" required>
+                                            
+{% if page.data.class_id %}
+<option value="{{page.data.class_id}}">{{page.data.class_name}}</option>
+{% endif %}
+<option value="">Select Class</option> 
+{% if page.classes %}
+{% for row in page.classes %}
+<option value="{{row.id}}">{{row.name}}</option>
+{% endfor %}
+{% endif %}
+                                        </select>
+                                </div>
+                    </div>            
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Select Section</label>
+                                    <select class="form-control" name="section" value="{{page.data.section}}" data-placeholder="Select" required>
+                                           
+                                            <option>A</option>
+                                            <option>B</option>
+                                            <option>C</option>
+                                        </select>
+                                </div>
+                    </div>
+					<div class="col-lg-4 col-md-12 col-sm-12">                        
+                          <div class="form-group">
+                                    <label>Subjects</label>
+                                    <select class="form-control" name="subject_id" data-placeholder="Select Subject" required>
+{% if page.data.subject_id %}
+<option value="{{page.data.subject_id}}">{{page.data.subject_name}}</option>
+{% endif %}
+<option value="">Select subject</option>
+{% if page.subjects %}
+{% for row in page.subjects %}
+<option value="{{row.id}}">{{row.title}}</option>
+{% endfor %}
+{% endif %}
+                                        </select>
+                           </div>
+                    </div>
+                </div>
+				
+				
+				 <div class="row">
+                    
+
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" name="description" row="2" required>{{page.data.description}}</textarea>
+                                </div>
+                    </div>					
+                                       
+				</div>
+				<div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">                        
+                        <div class="form-group">
+                                    <label>Upload File  </label>
+									<input type="file" class="dropify" name="image"data-allowed-file-extensions="jpg png">
+                        </div>
+                    </div>            
+                         
+                </div>
+                 <div class="form-group">
+                     <label><input type="checkbox" name="is_published" {% if page.data.is_published >0 %}
+checked
+{% endif %}>
+                        <span>If not published assignment will be saved as a draft.</span>
+                    </label>  
+                                     
+                    <div class="fancy-checkbox">
+                    <label><input type="checkbox" name="is_private"><span>This assignment requires submissions and review by faculties manually.</span></label>
+                    </div>
+                </div>                
+                    
+
+				<br>
+                                <button type="submit" class="btn btn-primary">Update Assignment</button>
+								
+				</div>
+				
+                            </form>
+                            <div id="form_overlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:32px;margin:10px auto;"/>
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Processing Request...</strong></h5>
+					<p>Please wait...</p>
+					</div>					
+					</div>
+                        </div>
+                    </div>
+                </div>
+			
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/app.js"></script>
+<script src="{{ base_url() }}/scripts/create_assignment.js"></script>
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<script>
+$('.select2').select2();
+</script> 
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+{% endblock %}

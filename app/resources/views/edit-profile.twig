@@ -1,0 +1,413 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="container">
+		
+		 <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        
+                    </div>
+                </div>
+            </div>
+
+            {% if page.user %}
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-12">
+                    <div class="card profile-header">
+                        <div class="body text-center">
+						
+						 {% if page.user.user_image %}	
+	<!-- <img id="profilePreview" data-default-file="{{base_url()}}/uploads/{{page.page.user.user_image}}?d=mm&amp;s=70" class="NO-CACHE">
+	 <input type="file" name="logo" class="dropify" data-allowed-file-extensions="jpg png" data-default-file="{{base_url()}}/uploads/{{page.school.logo}}?d=mm&amp;s=70" > -->
+    {% endif %}
+    
+     <div id="user_image_overlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:64px;margin:20px auto;"/>
+					<h6 style="margin-bottom: 10px;"><strong> Uploading Photo</strong></h6>
+					<p>Please wait...</p>
+					</div>					
+					</div>
+	
+	 <form class="form-auth-small" name="addUserImageForm" id="addUserImageForm" action="{{ base_url() }}/apis/users/uploadPhoto" method="POST" enctype="multipart/form-data">
+	     <input type="hidden" name="user_id" value="{page.user.id}}" required/>
+	 {% if page.user.user_image %}
+	 <input type="file" name="user_image" class="dropify" data-allowed-file-extensions="jpg png" data-default-file="{{page.user.user_image}}" >
+	{% else %}
+	 <input type="file" name="user_image" class="dropify" data-allowed-file-extensions="jpg png" >
+    {% endif %}
+                            <div>
+                                <h4 class="m-b-0 m-t-10"><strong>{{page.user.first_name}}</strong> {{page.user.last_name}}</h4>
+                                {% if page.user.role_id == 4 %}<span class="job_post">{{page.user.details.designation}}</span>{% endif %}
+								<p>{{page.user.school_name}}</p>
+								
+								 {% if page.user.usage %}<hr>
+								  <p>Usage : {{page.user.usage}}</p>{% endif %}
+								  
+                            </div>
+                            
+                            <br>
+                <button type="submit" class="btn btn-primary">UPLOAD</button>
+</form>
+                            
+                        </div>                    
+                    </div>          
+                    
+                    
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="card">
+                        <div class="body">
+                            <ul class="nav nav-tabs-new2 mb-3">
+                                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#personal">Personal Details</a></li>
+								{% if page.user.role_id == 3 %}<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Details">Academic Details</a></li>   {% endif %}
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Account">Account</a></li>                        
+                            </ul>
+                            <div class="tab-content padding-0">
+                                <div class="tab-pane active" id="personal">
+                                    <div class="alert alert-warning alert-dismissible" role="alert" id="errorMsgBlock" style="display:none;">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <i class="fa fa-warning"></i> <span id="errorMsg">Fill up the form to update personal details.</span>
+                            </div>
+                                     <form class="form-auth-small" name="updateUserForm" id="updateUserForm" action="{{ base_url() }}/apis/users/update" method="POST">
+                                    <input type="hidden" name="user_id" class="form-control" value="{{page.user.id}}">
+									<input type="hidden" name="role_id" class="form-control" value="{{page.user.role_id}}">
+									<input type="hidden" name="school_id" class="form-control" value="{{page.user.school_id}}">
+									<input type="hidden" name="user_name" class="form-control" value="{{page.user.user_name}}">
+                                    <input type="hidden" name="status" class="form-control" value="{{page.user.status}}">
+                                  
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>First Name</label>
+                                    <input name="first_name" type="text" class="form-control" value="{{page.user.first_name}}" required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input name="last_name" type="text" class="form-control" value="{{page.user.last_name}}" required>
+                                </div>
+                    </div>
+                </div>
+				
+				
+				 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Select Gender</label>
+                                    <select name="gender" class="form-control" data-placeholder="Select">
+                                         {% if page.user.gender %} 
+								<option value="{{page.user.gender}}">{{page.user.gender}}</option>	
+			{% endif %}	
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input name="dob" type="text" value="{{page.user.dob}}" class="form-control">
+                                        <div class="input-group-append">                                          
+                                            <button class="btn btn-outline-secondary" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+				
+				
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Mobile No.</label>
+                                    <input name="mobile" type="number" maxLength="10" class="form-control"value="{{page.user.mobile}}" required readonly>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>E-Mail</label>
+                                    <input name="email" type="email" class="form-control" value="{{page.user.email}}" required readonly>
+                                </div>
+                    </div>
+                </div>
+				
+				
+				 <div class="row">
+				   <div class="col-lg-12 col-md-12 col-sm-12">                        
+                         <div class="form-group">
+                                    <label>Address</label>
+                                    <div class="input-group">
+                                        <input name="address" type="text" value="{{page.user.address}}" class="form-control">
+                                    </div>
+                                </div>
+                    </div>  
+				
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                         <div class="form-group">
+                                    <label>City</label>
+                                    <div class="input-group">
+                                        <input name="city" type="text" value="{{page.user.city}}" class="form-control">
+                                    </div>
+                                </div>
+                    </div>           
+                                        <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Country</label>
+                                    <select name="country" class="form-control" data-placeholder="Select">
+                                         {% if page.user.country %} 
+								<option value="{{page.user.country}}">{{page.user.country}}</option>	
+			{% endif %}
+                                         {% if page.countries %}
+{% for countryrow in page.countries %}
+<option value="{{countryrow.id}}">{{countryrow.name}}</option>
+{% endfor %}{% endif %}
+                                        </select>
+                                </div>
+                </div>
+				</div>
+				
+				
+				  {% if page.adminMode %}
+				 <div class="row">
+                    <div class="col-lg-12                                                  col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Select Status</label>
+                                    <select name="status" class="form-control" data-placeholder="Select">
+                                         {% if page.user.status %} 
+								<option value="{{page.user.status}}">{{page.user.status}}</option>	
+			{% endif %}
+			
+			
+                                            <option value="Active">Active</option>
+                                            <option value="Pending">Pending</option>
+											 <option value="Blocked">Blocked</option>
+                                        </select>
+                                </div>
+                    </div></div>  
+			{% endif %}
+			
+			
+			
+					<br>
+                <button type="submit" class="btn btn-primary">SAVE DETAILS</button>
+                
+									</form>
+									<div id="registerOverlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:48px;margin:20px auto;"/>
+					<h5 style="margin-bottom: 10px;" class="text-mute"><strong>Updating Profile ...</strong></h5>
+					<p class="text-mute">Please wait...</p>
+					</div>					
+					</div>
+                                </div>
+								{% if page.user.role_id == 3 %}
+                                <div class="tab-pane" id="Details">
+                                    <div class="alert alert-warning alert-dismissible" role="alert" id="studentErrorMsgBlock" style="display:none;">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <i class="fa fa-warning"></i> <span id="studentErrorMsg">Fill up the form to update academic profile.</span>
+                            </div>
+								 <form class="form-auth-small" name="updateStudentForm" id="updateStudentForm" action="{{ base_url() }}/apis/students/update" method="POST">
+                                     <input name="user_id" type="hidden" class="form-control" value="{{page.user.id}}" required>
+                                  
+							 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">               
+                      <div class="form-group">
+                                    <label>Admission No.</label>
+                                    <input name="admission_no" type="text" class="form-control" value="{{page.user.details.admission_no}}" required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Roll Number</label>
+                                    <input name="roll_no" type="number" class="form-control" value="{{page.user.details.roll_no}}" required>
+                                </div>
+                    </div>
+                </div>
+				
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Select Class</label>
+                                     <select name="class" class="form-control" data-placeholder="Select">
+                                         {% if page.classes %}
+{% for classrow in page.classes %}
+<option value="{{classrow.id}}">{{classrow.name}}</option>
+{% endfor %}{% endif %}
+                                        </select>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Select Section</label>
+                                    <select  name="section" class="form-control" data-placeholder="Select">
+                                           
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                        </select>
+                                </div>
+                    </div>
+                </div>
+				
+			
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Religion</label>
+                                    <input name="religion" type="text" class="form-control" value="{{page.user.details.religion}}" required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Caste</label>
+                                    <input name="caste" type="text" class="form-control" value="{{page.user.details.caste}}" required>
+                                </div>
+                    </div>
+                </div>
+				
+				
+				 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                         <div class="form-group">
+                                    <label>Admission Date</label>
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input name="admission_date" type="text" value="{{page.user.details.admission_date}}" class="form-control">
+                                        <div class="input-group-append">                                            
+                                            <button class="btn btn-outline-secondary" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>           
+                                        <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Blood Group</label>
+                                    <select name="blood_group" class="form-control" data-placeholder="Select">
+                                            <option value="O">O</option>
+                                            <option value="A+">A+</option>
+											<option value="B+">B+</option>
+											<option value="AB+">AB+</option>
+											<option value="A-">A-</option>
+											<option value="B-">B-</option>
+											<option value="AB-">AB-</option>
+                                        </select>
+                                </div>
+                </div>
+				</div>
+				
+				
+					<br>
+                <button type="submit" class="btn btn-primary">SAVE DETAILS</button>
+                
+									</form>
+									<div id="studentOverlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:48px;margin:20px auto;"/>
+					<h5 style="margin-bottom: 10px;" class="text-mute"><strong>Saving Details ...</strong></h5>
+					<p class="text-mute">Please wait...</p>
+					</div>					
+					</div>
+                                </div>   {% endif %}
+								
+								
+					<div class="tab-pane" id="Account">
+                                     <form class="form-auth-small" name="updatePassForm" id="updatePassForm" action="{{ base_url() }}/apis/auth/creds/update" method="POST">
+                                   <div class="alert alert-warning alert-dismissible" role="alert" id="accountErrorMsgBlock" style="display:none;">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <i class="fa fa-warning"></i> <span id="accountErrorMsg">Fill up the form to update password.</span>
+                            </div>
+                                    <div class="form-group">
+									 <label>Current Password</label>
+									<input type="hidden" name="member_id" value="{{page.user.id}}" required/>
+                                        <input type="password" name="old_password" class="form-control" placeholder="Current Password" data-toggle="tooltip" data-original-title="Enter your current password" required>
+                                    </div>
+                                    <div class="form-group">
+									<label>New Password</label>
+                                        <input type="password" name="pass1" class="form-control" placeholder="New Password" required>
+                                    </div>
+									 <div class="form-group">
+									 <label>Repeat New Password</label>
+                                        <input type="password" name="pass2" class="form-control" placeholder="Repeat Password" required>
+                                    </div>
+                                    <button class="btn btn-info btn-round">Change Password</button>
+									</form>
+									<div id="accountOverlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:48px;margin:10px auto;"/>
+					<h5 style="margin-bottom: 10px;" class="text-mute"><strong>Updating Password ...</strong></h5>
+					<p class="text-mute">Please wait...</p>
+					</div>					
+					</div>
+									</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            
+                             {% if page.user.role_id == 5 %}	
+                    <div class="card">
+                        <div class="header">
+                            <h2>My Wards</h2>
+                        </div>
+                        <div class="body">                            
+                            <div class="workingtime">
+                            {% if page.user.details.wards %}
+{% for relativeRow in page.user.details.wards %}
+                                <span class="text-muted media-body name">{{relativeRow.first_name}}</strong> {{relativeRow.last_name}}</span>
+                                {% if relativeRow.is_guardian %}<span class="badge badge-success">Guardian</span>{% endif %}
+								<p>Mobile : {{relativeRow.mobile}}</p>
+								<p>Relationship : {{relativeRow.relationship}}</p>
+								<a href="tel:{{relativeRow.mobile}}" type="button" class="btn btn-primary"><i class="fa fa-phone"></i> <span>Call</span></a>
+								<a href="mailto:{{relativeRow.email}}" type="button" class="btn btn-success"><i class="fa fa-envelope"></i> <span>Mail</span></a>
+                                <hr>
+{% endfor %}
+{% else %}
+<h2 class="text-muted text-center"><i class="fa fa-users m-r-5"></i></h2>
+<p class="text-muted text-center">No Ward detail available</p>
+{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                           
+                        </div>
+                       
+                    </div>                              
+                </div>
+            </div>
+            {% endif %}	
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/app.js"></script>
+<script src="{{ base_url() }}/scripts/user-edit.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script> 
+<script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+{% endblock %}

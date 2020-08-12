@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>{{ page.title }}</title>	
+<meta name="description" content="{{ page.description }}">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+<meta http-equiv='cache-control' content='no-cache'> 
+<meta http-equiv='expires' content='0'> 
+<meta http-equiv='pragma' content='no-cache'> 
+<!-- VENDOR CSS -->
+{% block header_scripts_before %} {% endblock %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/animate-css/animate.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jvectormap/jquery-jvectormap-2.0.3.min.css"/>
+<link rel="stylesheet" href="{{ base_url() }}/vendor/morrisjs/morris.min.css" />
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="{{ base_url() }}/assets/css/main.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/animate-css/animate.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/toastr/toastr.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/assets/css/custom.css">
+<link rel="stylesheet" href="{{ base_url() }}/assets/css/color_skins.css">
+<script type="text/javascript">
+ var authorization = '{{ session.api_key }}';
+ </script>
+{% block header_scripts %} {% endblock %}
+</head>
+<body class="theme-dark">
+
+    <!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="m-t-30"><img src="{{ base_url() }}/images/loading.gif" width="48" height="48" alt="Loading"></div>
+        <p>Please wait...</p>        
+    </div>
+</div>
+
+<!-- Overlay For Sidebars -->
+
+<div id="wrapper">
+
+{% block header %} {% endblock %}
+{% block appnav %} {% endblock %}
+{% block content %} {% endblock %}
+    
+    
+</div>
+{% block after_body %} {% endblock %}
+<!-- Javascript -->
+<script src="{{ base_url() }}/assets/bundles/libscripts.bundle.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/vendorscripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/toastr/toastr.js"></script>
+<script src="{{ base_url() }}/assets/bundles/jvectormap.bundle.js"></script> <!-- JVectorMap Plugin Js -->
+<script src="{{ base_url() }}/assets/bundles/morrisscripts.bundle.js"></script><!-- Morris Plugin Js -->
+<script src="{{ base_url() }}/assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
+
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/index4.js"></script>
+{% block footer_scripts %} {% endblock %}
+</body>
+</html>

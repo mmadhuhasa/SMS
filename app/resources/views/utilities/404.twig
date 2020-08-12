@@ -1,0 +1,31 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block appnav %}
+{% endblock %}
+
+{% block content %}
+ <div class="vertical-align-wrap">
+        <div class="vertical-align-middle maintenance">
+
+        <div class="text-center">
+            <article>
+                <img src=""{{ base_url() }}/images/page-not-found.svg" style="margin:0 auto;max-width:500px;text-align:center;padding:20px;"/>
+                <h1 style="color:#ffffff;">PAGE NOT FOUND</h1>
+                <div>
+                    <h4 style="color:#ffffff;">Looks like the page you are trying to view is not available.</h4>
+                    <h4 style="color:#ffffff;">It may happen because the link for the page has been changed or it is currently under moderation.</h4>
+                </div>
+            </article>
+            <div class="margin-top-30">
+                <a href="{{ base_url() }}" class="btn btn-lg btn-info"><i class="fa fa-home"></i> <span>Home</span></a>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+{% endblock %}

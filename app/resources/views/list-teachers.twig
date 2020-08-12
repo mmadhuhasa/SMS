@@ -1,0 +1,335 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/fixedeader/dataTables.fixedcolumns.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/fixedeader/dataTables.fixedheader.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Manage Teachers</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}/admin-dashboard"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item">Teacher Accounts</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        <a href="{{ base_url() }}/register-teacher"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> <span>Add Teacher</span></button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row clearfix">
+              
+                <div class="col-lg-12">
+                    <div class="card">
+                        
+                        <div class="body">
+						<div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>School</th>
+                                        <th>Designation</th>
+                                        <th>Attendance</th>
+                                        <th>Mobile</th>
+                                        <th>Date Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                     <th>Name</th>
+                                        <th>School</th>
+                                        <th>Designation</th>
+                                        <th>Attendance</th>
+                                        <th>Mobile</th>
+                                        <th>Date Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+
+<tr>
+                                        <td>Ankit Sharma</td>
+                                        <td>Dolphin Public School</td>
+                                        <td>Science Teacher</td>
+                                        <td>92%</td>
+                                        <td>8767098899</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+<!------->
+<tr>
+                                        <td>Vaidehi Kumari</td>
+                                        <td>Dolphin Public School</td>
+                                         <td>Nursery Teacher</td>
+                                        <td>97%</td>
+                                        <td>9767018899</td>
+                                        <td>June 1, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>Ved Kumar</td>
+                                        <td>Dolphin Public School</td>
+                                         <td>Biology Teacher</td>
+                                        <td>79%</td>
+                                        <td>8767098899</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>Priyanka Gupta</td>
+                                        <td>Kidzee Public School</td>
+                                         <td>PT Teacher</td>
+                                        <td>62%</td>
+                                        <td>8767098899</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>John Doe</td>
+                                        <td>St. Johns Public School</td>
+                                        <td>Yoga Teacher</td>
+                                        <td>98%</td>
+                                        <td>9898978711</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    
+        <tr>
+                                        <td>Riya Sharma</td>
+                                        <td>Kidzee Public School</td>
+                                        <td>Sanskrit Teacher</td>
+                                        <td>91%</td>
+                                        <td>8767098899</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                       
+                       <tr>
+                                        <td>Roashan Kumar</td>
+                                        <td>Dolphin Public School</td>
+                                        <td>Hindi Teacher</td>
+                                        <td>97%</td>
+                                        <td>8767098899</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    
+                        <tr>
+                                        <td>Ravi Kumar</td>
+                                        <td>Dolphin Public School</td>
+                                        <td>English Teacher</td>
+                                        <td>96%</td>
+                                        <td>8767098899</td>
+                                        <td>May 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>   
+                                    
+                                    <tr>
+                                        <td>Mohan Sharma</td>
+                                        <td>Kidzee Public School</td>
+                                        <td>Social Science Teacher</td>
+                                        <td>98%</td>
+                                        <td>8117098899</td>
+                                        <td>June 3, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                   </tr>
+                                   
+ <tr>
+                                        <td>Shehzad Alam</td>
+                                        <td>Dolphin Public School</td>
+                                         <td>Chemistry Teacher</td>
+                                        <td>91%</td>
+                                        <td>9167098899</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    
+  <tr>
+                                        <td>Kavita Sinha</td>
+                                        <td>Dolphin Public School</td>
+                                        <td>Science Teacher</td>
+                                        <td>92%</td>
+                                        <td>9987098899</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr> 
+                                    
+<tr>
+                                        <td>Jeevan Sharma</td>
+                                        <td>Dolphin Public School</td>
+                                        <td>Biology Teacher</td>
+                                        <td>87%</td>
+                                        <td>8767865899</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>Akirti Singh</td>
+                                        <td>Dolphin Public School</td>
+                                         <td>Science Teacher</td>
+                                        <td>72%</td>
+                                        <td>9967011899</td>
+                                        <td>June 6, 2020</td>
+                                         <td class="actions">
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing m-r-5 button-save"
+                                            data-toggle="tooltip" data-original-title="Save" hidden><i class="icon-drawer" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-editing button-discard"
+                                            data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+<!------->                                    
+                                    
+                                </tbody>
+                            </table>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/assets/bundles/datatablescripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.html5.min.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.print.min.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js -->  
+<script src="{{ base_url() }}/assets/js/pages/tables/jquery-datatable.js"></script>
+{% endblock %}

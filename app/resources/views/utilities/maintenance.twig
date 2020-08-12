@@ -1,0 +1,33 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block appnav %}
+{% endblock %}
+
+{% block content %}
+ <div class="vertical-align-wrap">
+        <div class="vertical-align-middle maintenance">
+
+        <div class="text-center">
+            <article>
+                <img src=""{{ base_url() }}/images/maintenance.png" style="margin:0 auto;max-width:500px;text-align:center;padding:20px;"/>
+                <h1 style="color:#ffffff;">SITE IS UNDER MAINTENANCE</h1>
+                <div>
+                    <h4 style="color:#ffffff;">Sorry for the inconvenience. We are performing some maintenance at the moment.</h4>
+                    <h4 style="color:#ffffff;">If you need any help you can always <a href="mailto:#">contact us</a>, otherwise we&rsquo;ll be back online shortly!</h4>
+                    <p style="color:#ffffff;">&mdash; The Team</p>
+                </div>
+            </article>
+            <div class="margin-top-30">
+                <a href="javascript:history.go(-1)" class="btn btn-default"><i class="fa fa-arrow-left"></i> <span>Go Back</span></a>
+                <a href="{{ base_url() }}" class="btn btn-lg btn-info"><i class="fa fa-home"></i> <span>Home</span></a>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+{% endblock %}

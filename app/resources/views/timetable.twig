@@ -1,0 +1,452 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/multi-select/css/multi-select.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+       <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>School Timetable</h2>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="{{ base_url() }}/admin-dashboard"><i class="icon-home"></i></a></li>                           
+                           <li class="breadcrumb-item"><a href="{{ base_url() }}/time-table/{{session.school_id}}"> Timetable</a></li>
+                           <li class="breadcrumb-item active">View</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        <a href="{{ base_url() }}/add-timetable-entry"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> <span>Add Timetable Entry</span></button></a>
+                         <a href="{{ base_url() }}/manage-periods"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> <span>Manage Periods</span></button></a>
+                    </div>
+                </div>
+            </div>
+
+    <div class="row clearfix">
+                <div class="col-md-12">
+           <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Timetable </h2>
+                        </div><div class="body">
+                            <button type="button" class="btn mb-1 btn-simple btn-sm btn-success btn-filter" data-target="all">All Classes</button>
+                            <button type="button" class="btn mb-1 btn-simple btn-sm btn-primary btn-filter" data-target="classI">Class I</button>
+                            <button type="button" class="btn mb-1 btn-simple btn-sm btn-primary btn-filter" data-target="classII">Class II</button>
+                            <button type="button" class="btn mb-1 btn-simple btn-sm btn-primary btn-filter" data-target="classIII">Class III</button>
+                            <button type="button" class="btn mb-1 btn-simple btn-sm btn-primary btn-filter" data-target="classIV">Class IV</button>
+                            <div class="table-responsive m-t-20">
+                                <table class="table table-filter table-hover m-b-0">                                
+                                    
+									<thead>
+									 <td>#</td>
+                  
+                                         
+{% for row in page.days %}
+<td>{{row.name}}</td>
+{% endfor %}
+<td><span class="badge badge-muted">Action</span></td>
+                                        </thead>
+										<tbody>
+										    {% if page.timetable %}
+	 {% for row in page.timetable %}
+  <tr data-status="classI">
+        <td>{{row.start_time}} - {{row.end_time}} </td>
+         {% for rowmeta in row.days %} 
+         {% if rowmeta.subject_name %}
+          <td><div class="media-object">
+												<p class="primary" style="text-align:left;display:block;font-weight:500;">{{rowmeta.subject_name}}</p>
+										        <a href="{{base_url()}}/update-timetable-entry?period={{row.id}}&day={{rowmeta.day_id}}&class_id={{rowmeta.class_id}}&record={{rowmeta.id}}" class="badge badge-primary text-center">{{rowmeta.faculty_name}}</a>
+										        </div>
+											</td>
+         {% else %}
+          <td><div class="media-object">
+				<a href="{{base_url()}}/add-timetable-entry?period={{row.period_id}}&day={{rowmeta.day_id}}&class_id={{rowmeta.class_id}}&dayname={{rowmeta.day}}" class="badge badge-info text-center">ASSIGN</a>
+										        </div>
+											</td>
+         {% endif %}
+                                          
+		{% endfor %}									
+									
+                                            <td><span class="badge badge-success">EDIT</span></td>
+                                           
+ </tr>
+ {% endfor %}
+{% endif %}
+
+
+
+                                        <tr data-status="classI">
+                                            <td>Monday</td>
+                                            <td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-success">LUNC BREAK</span></td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+                                            <td><span class="badge badge-success">EDIT</span></td>
+                                            </tr>
+                                        
+										<tr data-status="classII">
+                                            <td>Tuesday</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-success">LUNC BREAK</span></td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+                                            <td><span class="badge badge-warning">EDIT</span></td>
+                                       </tr>
+									   
+									   
+                                        <tr data-status="classIV">
+                                           <td>Wednesday</td>
+                                           <td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-success">LUNC BREAK</span></td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">MATHS</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">MRINALINI CHETTRI</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-danger">EDIT</span></td>
+                                        </tr>
+										
+                                        <tr data-status="classI">
+                                            <td>Thursday</td>
+                                         
+                                            <td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-success">LUNC BREAK</span></td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-success">EDIT</span></td>
+                                        </tr>
+                                        <tr data-status="classI">
+                                           <td>Friday</td>
+                                          
+                                            <td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-success">LUNC BREAK</span></td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-success">EDIT</span></td>
+                                        </tr>
+                                        <tr data-status="classIII">
+                                           <td>Saturday</td>
+                                          
+                                            <td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-success">LUNC BREAK</span></td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-info">EDIT</span></td>
+                                        </tr>
+                                        <tr data-status="classIII">
+                                            <td>Sunday</td>
+                                            <td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+										        <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-success">LUNC BREAK</span></td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><div class="media-object">
+												<p class="primary" style="text-align:center;display:block;">COMPUTER</p>
+											    <img src="../assets/images/xs/avatar1.jpg" style="margin:0 auto;text-align:center;display:block;" width="35px" class="rounded-circle">
+											    <p class="badge badge-primary">Alok Saman</p>
+										        </div>
+											</td>
+											<td><span class="badge badge-info">EDIT</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+						
+                    </div>
+                </div>
+            </div>
+			
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<script>
+$('.select2').select2();
+</script> 
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+{% endblock %}

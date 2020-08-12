@@ -1,0 +1,69 @@
+  <div id="settingsOverlay" style="display:none;">
+					<div style="margin: 60px;padding:30px; text-align: center;">
+					<img src="{{ base_url() }}/img/loading.gif" style="margin: 20px;"/>
+					<h3><strong>Saving Changes</strong></h3>
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+<form method="POST" class="form-horizontal form-bordered" name="calculationSettingsForm" id="calculationSettingsForm" action="{{base_url()}}/calculation-rules/update" style="margin: 10px 20px 10px 20px;">
+
+<div class="well">
+    <b>1 {{page.calculation_rule.unit_type_name}} of {{page.calculation_rule.fuel_type_name}} produces {{page.calculation_rule.amount}} tons of carbon.</b>
+</div>
+<input class="form-control" value="{{page.calculation_rule.id}}" name="rule_id" type="hidden">
+<div class="row" style="margin-top:10px;">
+
+<div class="col-md-4">
+<div class="form-group" style="margin:10px;">
+<h5>Select Unit</h5>
+<select class="form-control" name="unit_type_edit">
+{% if page.calculation_rule.unit_type_name %} 
+<option value="{{page.calculation_rule.unit_type}}">{{page.calculation_rule.unit_type_name}}</option>	
+			{% endif %}
+	<option value="">-----</option>									
+	{% if page.calculation_rule.unit_types_arr %}
+            {% for unit_types in page.calculation_rule.unit_types_arr %}
+			<option value="{{unit_types.id}}">{{unit_types.title}}</option>
+			{% endfor %}
+            {% endif %}
+	</select>
+</div>
+</div>
+
+
+<div class="col-md-4">
+<div class="form-group" style="margin:10px;">
+<h5>Select Fuel Type</h5>
+<select class="form-control" name="fuel_type_edit">
+{% if page.calculation_rule.fuel_type_name %}
+<option value="{{page.calculation_rule.fuel_type}}">{{page.calculation_rule.fuel_type_name}}</option>	
+			{% endif %}
+	<option value="">-----</option>								
+	{% if page.calculation_rule.fuel_types_arr %}
+            {% for comp_row in page.calculation_rule.fuel_types_arr %}
+			<option value="{{comp_row.id}}">{{comp_row.title}}</option>
+			{% endfor %}
+            {% endif %}
+	</select></div></div>
+	
+<div class="col-md-4">
+<div class="form-group" style="margin:10px;">
+<h5>Amount of Co2</h5>
+<div class="input-group mb-md">
+<input class="form-control" value="{{page.calculation_rule.amount}}" name="amount_edit" type="text" placeholder="CO2 Amount">
+									<span class="input-group-addon btn-warning">TON</span>
+													</div>
+</div>
+</div>
+
+
+</div>
+
+
+<div class="row" style="">
+<div class="col-md-12 text-center">
+<div class="form-group">
+<button type="submit" class="btn btn-3d btn-primary btn-lg"> <i class="fa fa-arrow-circle-right"></i> Save Changes</button>
+</div></div></div>
+ 
+ </form>

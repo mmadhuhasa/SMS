@@ -1,0 +1,73 @@
+<div id="register_overlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="img/preloader.gif" style="width:64px;margin:20px auto;"/>
+					<h3 style="margin-bottom: 10px;"><strong>Registering Account</strong></h3>
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+					
+					<div id="registerScope" style="display:block;">
+												<h4 class="heading-primary text-uppercase mb-md center" style="font-size: 1.3em;font-weight:600;">Register An Account</h4><hr>
+												<form action="{{ base_url() }}/registration" name="registerForm" class="registerForm" method="POST">
+												
+						
+														<div class="row">
+														<div class="form-group">
+															<div class="col-md-6">
+																<label>First Name</label>
+																<input type="text" name="first_name" id="first_name" value="" class="form-control input-lg" required>
+															</div>
+															<div class="col-md-6">
+																<label>Last Name</label>
+																<input type="text" value="" name="last_name" id="last_name" class="form-control input-lg">
+															</div>
+														</div>
+													</div>
+				
+				
+					<div class="row">
+														<div class="form-group">
+															<div class="col-md-6">
+																<label>E-mail Address</label>
+																<input type="email" name="email" id="email" value="" class="form-control input-lg" required>
+															</div>
+															<div class="col-md-6">
+																<label>Country</label>
+																<input type="hidden" name="description" value="" class="form-control input-lg" required>
+															<select data-plugin-selectTwo name="country" class="form-control input-lg populate">
+			<option label="">Select one</option>
+									
+	{% if page.countries %}
+            {% for comp_row in page.countries %}
+			<option value="{{comp_row.name}}">{{comp_row.name}}</option>
+			{% endfor %}
+            {% endif %}
+	</select>
+															</div>
+														</div>
+													</div>
+													
+													
+																						
+													<div class="row">
+														<div class="form-group">
+															<div class="col-md-6">
+																<label>Password</label>
+																<input type="password" name="password" id="password" value="" class="form-control input-lg" required>
+															</div>
+															<div class="col-md-6">
+																<label>Re-enter Password</label>
+																<input type="password" name="password_repeat" id="password_repeat" class="form-control input-lg" required>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															<input type="submit" value="Register Account" class="btn btn-primary pull-right mb-xl" data-loading-text="Loading...">
+														</div>
+													</div>
+												</form>
+												
+																				<p class="log-in-info">Already have an account? <a href="#" id="headerSignIn" class="p-none m-none ml-xs">Log In</a></p>
+																		
+												</div>

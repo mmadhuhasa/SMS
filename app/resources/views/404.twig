@@ -1,0 +1,104 @@
+{% extends 'layout.twig' %}
+{% block header %}
+{% include 'partials/nav.twig' %}
+{% endblock %}
+{% block content %}
+<!-- Content -->
+<section class="call-to-action call-to-action-dark">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="call-to-action-content">
+									<h3><strong>Empowering Individuals and Businesses to calculate and offset their travel carbon emissions.</strong></h3>
+									<p> <strong>Use our Carbon Emissions Calculators to offset and celebrate your contribution.</strong></p>
+								</div>
+								<div class="call-to-action-btn">
+									<a href="#" data-toggle="modal" data-target="#formModal" class="btn btn-lg btn-default">CALCULATE FOOTPRINT</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+<div role="main" class="main">
+ <div class="container">
+     
+						
+ <div class="row">
+		<div class="col-md-12">
+
+			<section id="not-found" class="center">
+				<div class="header-logo">
+									<a href="{{base_url()}}">
+									
+										 <img alt="" height="180" src="img/logo.png" style="margin-top:20px;margin-bottom:20px;">
+									</a>
+						<p></p>
+							<h3>OFFSET YOUR EMISSIONS TODAY AND HELP DRIVE TOWARDS A GREENER FUTURE</h3>
+				<h4>We're sorry, but the page you are looking for is not found.</h4>
+
+				<!-- Search -->
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2">
+						<a href="{{base_url()}}" class="btn btn-3d btn-primary btn-3d btn-lg"><i class="fa fa-home"></i> Go to Home page</a>
+					</div>
+				</div>
+				<!-- Search Section / End -->
+
+
+			</section>
+<section class="call-to-action call-to-action-dark" style="margin-top:20px;">
+					<div class="">
+						<div class="row">
+						    
+							<div class="col-md-12 center" style="padding-top:20px;padding-left:20px;padding-right:20px;">
+							    	<div class="center">
+								<img class="responsive" alt="" src="img/co2-reduction.png" style="width:60%;max-width:120px;">
+								</div>
+								<div class="padding:20px;">
+									<h3><strong>BALANCE YOUR CARBON IMPACT</strong></h3>
+									<p> <strong>We will continue to seek new ways to reduce our carbon footprint while implementing the programs we already have in place. But Offsetting alone won’t be enough to stop climate change. We encourage everyone to look at how you can reduce your footprint in everyday life. We believe that these small actions add up and can make a difference in bettering our environment, together.</strong></p>
+								</div>
+								
+								<div class="center" style="margin:20px;">
+							<a href="offset-my-car-emissions" class="btn btn-lg btn-primary text-center"><i class="fa fa-car"></i> OFFSET CAR EMISSIONS</a>
+								&nbsp;&nbsp;&nbsp;<a href="offset-my-flight-emissions"  class="btn btn-lg btn-primary text-center" style="color: #ffffff;"><i class="fa fa-plane"></i> OFFSET FLIGHT EMISSIONS</a>
+						</div></div>
+								</div>
+					</div>
+				</section>
+		</div>
+	</div>
+  
+  
+  
+    <div class="row"  style="margin-top:20px;">
+							<div class="col-md-6" style="">
+							<div class="sidebar well center" style="padding:20px;">
+									
+								<img src="{{base_url()}}/img/caremission.png" style="width:90px;margin:0 auto;" class="img-responsive">
+								<h4 class="heading-primary center"><b>OFFSET CAR EMISSIONS</b></h4>
+								<hr>
+								<p style="margin-top:10px;font-weight:600;">Car Travel is a part of every day life and the biggest contributor to Carbon Emissions. Wouldn't you feel better knowing that each mile you drove contributed to a greener tomorrow?</p>
+							     <a href="{{base_url()}}/offset-my-car-emissions" class="btn btn-md btn-primary mr-md"><i class="fa fa-arrow-right"></i> CALCULATE FOOTPRINT</a>
+								
+							</div>
+							</div>
+							
+								<div class="col-md-6" style="">
+							<div class="sidebar well center" style="padding:20px;">
+							
+								<img src="{{base_url()}}/img/flightemissions.png" style="width:90px;margin:0 auto;" class="img-responsive">
+									<h4 class="heading-primary center"><b>OFFSET FLIGHT EMISSIONS</b></h4>
+								
+								<hr>	
+								<p style="margin-top:10px;font-weight:600;">Air Travel is sometimes unavoidable, but that doesn't mean we can't reduce the impact of our flights.</p>
+							     <a href="{{base_url()}}/offset-my-flight-emissions" class="btn btn-md btn-primary mr-md"><i class="fa fa-arrow-right"></i> CALCULATE FOOTPRINT</a>
+								
+							</div>
+							</div></div>
+						
+						
+						
+						
+  </div></div>
+{% endblock %}

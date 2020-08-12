@@ -1,0 +1,38 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block appnav %}
+{% endblock %}
+
+{% block content %}
+<div class="vertical-align-wrap">
+			<div class="vertical-align-middle auth-main">
+				<div class="auth-box">
+                    <div class="top">
+                        <img src="{{ base_url() }}/images/logo.png" alt="Talank School Automation System">
+                    </div>
+					<div class="card">
+                        <div class="header">
+                            <h3>
+                                <span class="clearfix title">
+                                    <span class="number">Unauthorized Acccess</span> <br>
+                                </span>
+                            </h3>
+                        </div>
+                        <div class="body">
+                            <p>Looks like the content you were trying to access is not authorized.
+                                <br>Please try after some time.</p>
+                            <p><a href="{{ base_url() }}/profile" class="btn btn-primary"><i class="fa fa-home"></i> <span>Home</span></a></p>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/front_script.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> {% endblock %}

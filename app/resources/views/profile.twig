@@ -1,0 +1,241 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/chartist/css/chartist.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/fullcalendar/fullcalendar.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="container">
+		
+		 <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        
+                    </div>
+                </div>
+            </div>
+
+            {% if page.user %}
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-12">
+                    <div class="card profile-header">
+                        <div class="body text-center">
+						
+						 {% if page.user.user_image %}	
+	<!-- <img id="profilePreview" data-default-file="{{base_url()}}/uploads/{{page.page.user.user_image}}?d=mm&amp;s=70" class="NO-CACHE">
+	 <input type="file" name="logo" class="dropify" data-allowed-file-extensions="jpg png" data-default-file="{{base_url()}}/uploads/{{page.school.logo}}?d=mm&amp;s=70" > -->
+	 
+	  <div class="profile-image mb-3 text-center"> <img class="img-fluid rounded" src="{{page.user.user_image}}" alt=""> </div>
+	{% else %}
+	 <div class="profile-image mb-3 text-center"> <img class="img-fluid rounded" src="{{base_url()}}/images/lg/avatar1.jpg" alt=""> </div>
+    {% endif %}
+                            <div>
+                                <h4 class="m-b-0"><strong>{{page.user.first_name}}</strong> {{page.user.last_name}}</h4>
+                                 {% if page.user.role_id == 3 %}<span class="job_post">{{page.user.details.class_name}} {{page.user.details.section_name}}</span>{% endif %}
+                                {% if page.user.role_id == 4 %}<span class="job_post">{{page.user.details.designation}}</span>{% endif %}
+								<p>{{page.user.school_name}}</p>
+                            </div>
+                            <div>
+                                <a href="{{base_url()}}/edit-profile/{{page.user.user_name}}" class="btn btn-primary btn-round">Edit</a>
+                                <button class="btn btn-primary btn-simple">Message</button>
+                            </div>
+                            
+                        </div>                    
+                    </div>          
+                    
+                      <div class="card">
+                        <div class="header">
+                            <h2>Usage Details</h2>
+                        </div>
+                        <div class="body">                            
+                            <div class="workingtime">   
+                                {% if page.user.last_seen %}							
+								<p>Last Seen : {{page.user.last_seen}}</p>{% endif %}
+                                {% if page.user.ip_address %}<hr>
+								 <p>IP Address : {{page.user.ip_address}}</p>{% endif %}
+								  <hr>
+								 {% if page.user.usage %}<p>Usage : {{page.user.usage}}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if page.user.role_id == 3 %}	
+                    <div class="card">
+                        <div class="header">
+                            <h2>Parents/Guardians Details</h2>
+                        </div>
+                        <div class="body">                            
+                            <div class="workingtime">
+                            {% if page.user.details.parents %}
+{% for relativeRow in page.user.details.parents %}
+                                <span class="text-muted media-body name">{{relativeRow.first_name}}</strong> {{relativeRow.last_name}}</span>
+                                {% if relativeRow.is_guardian %}<span class="badge badge-success">Guardian</span>{% endif %}
+								<p>Mobile : {{relativeRow.mobile}}</p>
+								<p>Relationship : {{relativeRow.relationship}}</p>
+								<a href="tel:{{relativeRow.mobile}}" type="button" class="btn btn-primary"><i class="fa fa-phone"></i> <span>Call</span></a>
+								<a href="mailto:{{relativeRow.email}}" type="button" class="btn btn-success"><i class="fa fa-envelope"></i> <span>Mail</span></a>
+                                <hr>
+{% endfor %}
+{% else %}
+<h2 class="text-muted text-center"><i class="fa fa-users m-r-5"></i></h2>
+<p class="text-muted text-center">No guardian detail available</p>
+{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if page.user.role_id == 3 %}	
+                    <div class="card">
+                        <div class="header">
+                            <h2>Reviews</h2>
+                        </div>
+                        <div class="body"> 
+                            <div class="reviews">
+                                <span class="text-muted">Attendance</span>
+                                <p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-outline"></i>
+                                    <i class="fa fa-star-outline"></i>
+                                </p>
+                                <span class="text-muted">Helpfulness</span>
+                                <p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </p>
+                                <span class="text-muted">Obedient</span>
+                                <p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-outline"></i>
+                                    <i class="fa fa-star-outline"></i>
+                                </p>
+                                <span class="text-muted">Punctuality</span>
+                                <p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-outline"></i>
+                                    <i class="fa fa-star-outline"></i>
+                                    <i class="fa fa-star-outline"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                     {% endif %}
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="card">
+                        <div class="body">
+                            <ul class="nav nav-tabs-new2 mb-3">
+                                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#about">Personal Details</a></li>
+                            </ul>
+                            <div class="tab-content padding-0">
+                                <div class="tab-pane active" id="about">
+                                    <ul class="list-unstyled">
+				 
+   {% if page.user.role_id == 1 or page.user.role_id == 2 %}	
+                                        <li><p><i class="icon icon-badge m-r-5"></i><strong>Name :</strong> {{page.user.first_name}} {{page.user.last_name}}</p></li>
+                                        <li><p><i class="icon icon-user m-r-5"></i><strong>Username :</strong> {{page.user.user_name}}</p></li>
+                                        <li><p><i class="icon icon-home m-r-5"></i><strong>School :</strong> {{page.user.school_name}}</p></li>								 
+{% endif %}
+
+				
+                                        {% if page.user.role_id == 3 %}	
+ <li><p><i class="icon icon-graduation m-r-5"></i><strong>Class :</strong> Standard IX</p></li>
+                                        <li><p><i class="fa fa-calendar m-r-5"></i><strong>Date Of Birth :</strong> {{page.user.dob}}</p></li>
+                                        <li><p><i class="icon icon-control-forward m-r-5"></i><strong>Admission No :</strong> {{page.user.details.admission_no}}</p></li>
+                                        <li><p><i class="icon icon-calendar m-r-5"></i><strong>Admission Date :</strong> {{page.user.details.admission_date}}</p></li>
+                                        <li><p><i class="icon icon-energy m-r-5"></i><strong>Caste :</strong> {{page.user.details.caste}}</p></li>
+                                        <li><p><i class="icon icon-action-redo m-r-5"></i><strong>Religion :</strong> {{page.user.details.religion}}</p></li
+                                        <li><p><i class="icon icon-user-follow m-r-5"></i><strong>Guardians Details :</strong> {{page.user.details.guardian}}</p></li>
+                                        <li><p><i class="icon icon-users m-r-5"></i><strong>Other Relatives :</strong> {{page.user.details.numOtherParents}}</p></li>
+                                        <li><p><i class="fa fa-user-md m-r-5"></i><strong>Blood Group :</strong> {{page.user.details.blood_group}}</p></li>									 
+{% endif %}
+
+{% if page.user.role_id == 4 %}	
+ <li><p><i class="fa fa-graduation-cap m-r-5"></i><strong>Class Incharge for </strong> Standard IX</p></li>
+<li><p><i class="fa fa-check-circle m-r-5"></i><strong>Designation :</strong> {{page.user.details.designation}}</p></li>
+<li><p><i class="fa fa-calendar m-r-5"></i><strong>Joining Date :</strong> {{page.user.details.joining_date}}</p></li>							 
+{% endif %}
+
+{% if page.user.role_id == 5 %}	
+                                        <li><p><i class="fa fa-suitcase m-r-5"></i><strong>Occupation :</strong> {{page.user.details.occupation}}</p></li>								 
+{% endif %}
+
+
+                                        <li><p><i class="icon icon-user-follow m-r-5"></i><strong>Account since</strong> {{page.user.date_created}}</p></li>
+                                    </ul>
+                                    <hr>
+                                </div>
+                                                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            
+                             {% if page.user.role_id == 5 %}	
+                    <div class="card">
+                        <div class="header">
+                            <h2>My Wards</h2>
+                        </div>
+                        <div class="body">                            
+                            <div class="workingtime">
+                            {% if page.user.details.wards %}
+{% for relativeRow in page.user.details.wards %}
+                                <span class="text-muted media-body name">{{relativeRow.first_name}}</strong> {{relativeRow.last_name}}</span>
+                                {% if relativeRow.is_guardian %}<span class="badge badge-success">Guardian</span>{% endif %}
+								<p>Mobile : {{relativeRow.mobile}}</p>
+								<p>Relationship : {{relativeRow.relationship}}</p>
+								<a href="tel:{{relativeRow.mobile}}" type="button" class="btn btn-primary"><i class="fa fa-phone"></i> <span>Call</span></a>
+								<a href="mailto:{{relativeRow.email}}" type="button" class="btn btn-success"><i class="fa fa-envelope"></i> <span>Mail</span></a>
+                                <hr>
+{% endfor %}
+{% else %}
+<h2 class="text-muted text-center"><i class="fa fa-users m-r-5"></i></h2>
+<p class="text-muted text-center">No guardian detail available</p>
+{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                        </div>
+                    </div>                              
+                </div>
+            </div>
+            {% endif %}	
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/assets/bundles/datatablescripts.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/tables/jquery-datatable.js"></script>
+<script src="{{ base_url() }}/assets/bundles/morrisscripts.bundle.js"></script><!-- Morris Plugin Js -->
+<script src="{{ base_url() }}/assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
+<script src="{{ base_url() }}/assets/bundles/chartist.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/superadmindashboard.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

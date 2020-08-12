@@ -1,0 +1,202 @@
+{% if page.editMode %}
+{% set formName = 'editServiceForm' %}
+{% set formUrl = 'services/update' %}
+{% else %}
+{% set formName = 'addServiceForm' %}
+{% set formUrl = 'services/create' %}
+{% endif %}
+	<section class="panel form-wizard" id="w4">
+									<header class="panel-heading">
+										<h2 class="panel-title">{{page.page_title}}</h2>
+									</header>
+									<div class="panel-body">
+										<div class="wizard-progress wizard-progress-lg">
+											<div class="steps-progress">
+												<div class="progress-indicator"></div>
+											</div>
+											<ul class="wizard-steps">
+												<li class="active">
+													<a href="#w4-first" data-toggle="tab"><span>1</span>Project Info</a>
+												</li>
+												<li>
+													<a href="#w4-second" data-toggle="tab"><span>2</span>Content</a>
+												</li>
+												<li>
+													<a href="#w4-third" data-toggle="tab"><span>3</span>Pricing </a>
+												</li>
+											</ul>
+										</div>
+						
+						
+							<div id="projectOverlay" style="display:none;">
+					<div style="margin: 60px;padding:30px; text-align: center;">
+					<img src="{{ base_url() }}/img/loading.gif" style="margin: 20px;"/>
+				
+{% if page.editMode %}
+	<h3><strong>Updating Project </strong></h3>
+{% else %}
+	<h3><strong>Adding Project </strong></h3>
+{% endif %}
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+					
+										<form class="form-horizontal" id="{{formName}}" name="{{formName}}" action="{{base_url()}}/{{formUrl}}" enctype="multipart/form-data" method="POST">									
+											<div class="tab-content">
+												<div id="w4-first" class="tab-pane active">
+												
+															{% if page.editMode %}
+<input type="hidden" name="item_id" value="{{service.service_id}}">
+{% endif %}
+										<input type="hidden" name="is_front" value="1">
+										<input type="hidden" name="pre_body" value="">
+													
+													
+<!----Image --->
+<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-username">Project Cover</label>
+													
+												<div class="col-md-6">
+												    <img src="{{base_url()}}/img/holder.png" class="rounded img-responsive" id="imagePreview" style="height:120px;">
+												    
+													<div class="fileupload fileupload-new" data-provides="fileupload">
+														<div class="input-append">
+															<div class="uneditable-input">
+																<i class="fa fa-file fileupload-exists"></i>
+																<span class="fileupload-preview"></span>
+															</div>
+															<span class="btn btn-default btn-file">
+																<span class="fileupload-exists">Change</span>
+																<span class="fileupload-new">Select file</span>
+																<input type="file" name="image" id="projectImg" onChange="projectImgPreview()"/>
+															</span>
+															<a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-username">Project Title *</label>
+														<div class="col-sm-9">
+														    
+														  
+															<input type="text" name="title" id="title" value="{% if service.title %}{{service.title}}{% endif %}" class="form-control" placeholder="Enter project title" required/>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-password">Select Category *</label>
+														<div class="col-sm-9">
+															<select class="form-control populate" name="category_id" id="category_id">
+											        	{% if page.editMode %}
+			<option value="{{service.category_id}}">{{service.category}}</option>
+            {% endif %}
+									<option value="">Select a category</option>	
+										{% if page.categories %}
+            {% for currency_row in page.categories %}
+			<option value="{{currency_row.id}}">{{currency_row.title}}</option>
+			{% endfor %}
+            {% endif %}
+								</select>
+														</div>
+													</div>
+													
+														<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-last-name">Project Tags</label>
+														<div class="col-sm-9">
+															<input type="text" data-toggle="popover" data-placement="top" data-original-title="Metatags (Optional)" data-content="Enter comma separated tags for better searchability." data-trigger="click" name="tag" id="tag" value="{% if service.tag %}{{service.tag}}{% endif %}" class="form-control" placeholder="Comma separated tags (Optional)"/>
+														</div>
+													</div>
+
+												</div>
+<!--- End of Wizard Item 2 ---->					
+<!--- Start Wizard Item 2 ---->
+												<div id="w4-second" class="tab-pane">
+												
+												
+															<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-email">Description *</label>
+														<div class="col-sm-9">
+															<textarea class="form-control" rows="3" placeholder="Enter short description here" 
+												name="description" id="textareaAutosize" data-plugin-textarea-autosize="" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 74px;" required>{% if page.editMode %}{{service.description}}{% endif %}</textarea>
+														</div>
+													</div>
+													
+													
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-email">Body</label>
+														<div class="col-sm-9">
+															<textarea class="form-control" rows="5" placeholder="Enter long description here" 
+												name="body" id="textareaAutosize" data-plugin-textarea-autosize="" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 74px;">{% if page.editMode %}{{service.body}}{% endif %}</textarea>
+														</div>
+													</div>
+													
+												</div>
+<!--- Start Wizard Item 3 ---->												
+												<div id="w4-third" class="tab-pane">
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-cc">Unit Price</label>
+														<div class="col-sm-9">
+														
+															<div class="input-group mb-md">
+														<span class="input-group-addon">&euro;</span>
+														<input type="number" pattern="[0-9]*" class="form-control" name="price" value="{% if service.price %}{{service.price}}{% endif %}" placeholder="Enter offset price." required>
+													</div>
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="inputSuccess">CO2 Amount</label>
+														<div class="col-sm-5">
+																<input type="number" name="unit_amount" id="unit_amount" value="{% if service.unit_amount %}{{service.unit_amount}}{% endif %}" class="form-control" placeholder="Enter unit amount." required/>
+														</div>
+														<div class="col-sm-4">
+															<select class="form-control"  name="unit_name" id="unit_name" required>
+																{% if service.unit_name %} 
+								<option value="{{service.unit_name}}">{{service.unit_name}}</option>	
+			{% endif %}	
+			<option label="blank">Select unit</option>
+									
+	{% if page.project_units %}
+            {% for comp_row in page.project_units %}
+			<option value="{{comp_row.title}}">{{comp_row.title}}</option>
+			{% endfor %}
+            {% endif %}
+															</select>
+														</div>
+													</div>
+													
+	
+													
+												<div class="form-group">
+											<label class="col-sm-3 control-label"></label>
+											<div class="col-sm-9">
+											<div class="checkbox-custom checkbox-default">
+																<input type="checkbox" name="is_published" value="1" {% if page.editMode %}checked="1"{% endif %} id="checkboxExample1">
+																<label for="checkboxExample1">Make this project available for everyone.</label>
+															</div>
+											</div>
+										</div>
+												
+												</div>
+												
+<!--- End of Wizard Item 3 ---->												
+								
+											</div>
+										</form>
+									</div>
+									<div class="panel-footer">
+										<ul class="pager">
+											<li class="previous disabled">
+												<a><i class="fa fa-angle-left"></i> Previous</a>
+											</li>
+											<li class="finish pull-right">
+												<a class="">Finish</a>
+											</li>
+											<li class="next">
+												<a>Next <i class="fa fa-angle-right"></i></a>
+											</li>
+										</ul>
+									</div>
+								</section>

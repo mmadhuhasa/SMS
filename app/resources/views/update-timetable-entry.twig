@@ -1,0 +1,236 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/multi-select/css/multi-select.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+       <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Update Timetable</h2>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="{{ base_url() }}/admin-dashboard"><i class="icon-home"></i></a></li>                           
+                             <li class="breadcrumb-item"><a href="{{ base_url() }}/time-table/{{session.school_id}}"> Timetable</a></li>
+                            <li class="breadcrumb-item active">Update Entry</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        <a href="{{ base_url() }}/time-table"><button type="button" class="btn btn-primary"><i class="fa fa-table"></i> <span>View Timetable</span></button></a>
+                    </div>
+                </div>
+            </div>
+
+    <div class="row clearfix">
+                <div class="col-md-12">
+                                  <div class="card">
+                        <div class="header">
+                            <h2>Modify Timetable Entry</h2>
+                        </div>
+                        <div class="body">
+                            <div id="registerOverlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:64px;margin:20px auto;"/>
+					<h4 style="margin-bottom: 10px;"><strong>Saving Timetable Entry</strong></h4>
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+					
+					
+					<p>Period: {{page.routine.period_id}} Class: {{page.routine.class_id}} Day: {{page.routine.day_id}} #ID: {{page.routine.id}} </p>
+                            <form name="addTimetableEntryForm" id="addTimetableEntryForm" method="post" method="post" action="{{ base_url() }}/apis/timetable/update" novalidate>
+							<div class="alert alert-warning alert-dismissible" role="alert" id="errorMsgBlock" style="display:none;">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <i class="fa fa-warning"></i> <span id="errorMsg">Fill up the form to modify timetable entry.</span>
+                            </div>
+							<div class="row">
+							
+							<div class="col-lg-6 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                    <label>Select Class</label>
+                                     <select name="class_id" class="form-control show-tick ms select2" data-placeholder="Select">
+                                         {% if page.classes %}
+{% for row in page.classes %}
+ <option value="{{row.id}}">{{row.name}}</option>
+{% endfor %}
+{% endif %}
+                                        </select>
+                                </div>
+                    </div>
+							
+							
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+        <div class="form-group">
+                                    <label>Select Section</label>
+                                    <select name="section" class="form-control show-tick ms select2" data-placeholder="Select">
+                                            <option>A</option>
+                                            <option>B</option>
+											 <option>C</option>
+                                        </select>
+										
+                                </div>
+                    </div>            
+                    
+                </div>
+				
+				
+				
+				 <div class="row">
+				     {% if page.routine.period_id > 0 %}
+                    <div class="col-lg-6 col-md-12 col-sm-12">   
+                     <div class="form-group">
+                                    <label>Select Period</label>
+									<select name="period_id"class="form-control show-tick ms select2" data-placeholder="Select">
+                                         {% if page.periods %}
+{% for row in page.periods %}
+ <option value="{{row.id}}">{{row.start_time}}- {{row.end_time}}</option>
+{% endfor %}
+{% endif %}
+                                        </select>
+                                    
+                                </div>
+                     
+                    </div>   
+                    {% else %}
+                    <div class="col-lg-6 col-md-12 col-sm-12"> 
+                    <input name="period_id" type='text' class="form-control" value='{{page.routine.period_id}}' readonly/>
+                    </div>
+                    {% endif %}
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Select Subject</label>
+									<select name="subject"class="form-control show-tick ms select2" data-placeholder="Select">
+                                         {% if page.subjects %}
+{% for row in page.subjects %}
+ <option value="{{row.id}}">{{row.title}}</option>
+{% endfor %}
+{% endif %}
+                                        </select>
+                                    
+                                </div>
+                    </div>
+                </div>
+				
+				
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Select Day</label>
+                                    <select name="day_id" class="form-control show-tick ms select2" data-placeholder="Select">
+                                             {% if page.days %}
+{% for row in page.days %}
+ <option value="{{row.id}}">{{row.name}}</option>
+{% endfor %}
+{% endif %}
+                                        </select>
+										
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Select Teacher </label>
+									<select name="faculty"class="form-control show-tick ms select2" data-placeholder="Select">
+                                            <option value="">Select a teacher </option>
+                                            {% if page.teachers %}
+{% for row in page.teachers %}
+ <option value="{{row.id}}">{{row.first_name}} {{row.last_name}}</option>
+{% endfor %}
+{% endif %}
+                                        </select>
+                                    
+                                </div>
+                    </div>
+                </div>
+                
+                
+			<input name="school_id" type='hidden' class="form-control" value='{{page.routine.school_id}}' />
+			<input name="item_id" type='hidden' class="form-control" value='{{page.routine.id}}' />
+				
+				
+				
+				<br>
+                                <button type="submit" class="btn btn-primary">Add TimeTable</button>
+                            </form>
+                        </div>
+                    
+						
+                    </div>
+                </div>
+            </div>
+			
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<script>
+$('.select2').select2();
+</script> 
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+<script type="text/javascript">
+var base_url = "http://talanksas.devouttechnologies.com";
+$(document).ready(function() {
+//alert("Hello "+authorization);
+$('#addTimetableEntryForm').submit(function (e) {
+    e.preventDefault();
+	alert(authorization+" => "+$(this).serialize());
+	var form = $('#registrationForm');
+    var data = new FormData(this);
+    document.getElementById("addTimetableEntryForm").style.display = 'none';
+	document.getElementById("registerOverlay").style.display = 'block';
+	document.getElementById("errorMsgBlock").style.display = 'none';
+	$("#errorMsg").text('');
+    $.ajax({
+        url: $(this).attr('action'),
+        type: "POST",
+        data: $(this).serialize(),
+         beforeSend: function(request) {
+               request.setRequestHeader("Authorization", authorization);
+             },
+		//processData: false, 
+        //contentType: false, 
+		dataType: 'json',
+        success: function(data) {
+		//alert("Hello "+data);
+		if(data.error){
+		document.getElementById("registerOverlay").style.display = 'none';
+		document.getElementById("addTimetableEntryForm").style.display = 'block';
+		document.getElementById("errorMsgBlock").style.display = 'block';
+	    $("#errorMsg").text(data.message);
+		}else{
+document.getElementById("errorMsgBlock").style.display = 'block';
+$("#errorMsg").text(data.message);			
+setTimeout(function(){
+location = base_url+"/time-table";
+}, 2200);
+		}
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        //alert(thrownError);
+      }
+    });
+});
+
+});
+</script>
+{% endblock %}

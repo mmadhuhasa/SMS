@@ -1,0 +1,42 @@
+<nav id="left-sidebar-nav" class="sidebar-nav">
+                        <ul id="main-menu" class="metismenu">   
+                        
+                        <li {% if page.name == "dashboard" %}class="active"{% endif %}><a href="{{ base_url() }}/dashboard">
+                                <i class="icon-speedometer"></i> Dashboard
+                            </a></li>
+                            
+                        <li {% if page.name == "school" %}class="active"{% endif %}><a href="#">
+                                <i class="icon-home"></i> My School
+                            </a></li>
+
+                        <li {% if page.name == "school-calendar" %}class="active"{% endif %}><a href="{{ base_url() }}/school-calendar">
+                        <i class="icon-calendar"></i> School Calendar</a></li>
+
+                          <li {% if page.name == "attendance" %}class="active"{% endif %}><a href="{{ base_url() }}/attendance">
+                        <i class="icon-check"></i> Attendance</a></li>
+                           
+                        <li {% if page.name == "posts" %}class="active"{% endif %}><a href="{{ base_url() }}/manage-posts">
+                                <i class="icon-bulb"></i> E-Contents
+                            </a></li>
+                            
+                        <li {% if page.name == "exams" %}class="active"{% endif %}><a href="#">
+                                <i class="icon-speedometer"></i> Exams
+                            </a></li>
+                            
+                    
+						<li {% if page.name == "assignments" %}class="active"{% endif %}>
+                                <a href="#" class="has-arrow"><i class="icon-note"></i> <span>Assignments</span></a>
+                                <ul>
+                                <li class="nav-item"><a href="{{ base_url() }}/manage-assignments"><i class="icon-list"></i> View Assignments</a></li>                                    
+                                <li class="nav-item"><a href="{{ base_url() }}/create-assignment"><i class="icon-plus"></i> Create Assignment</a></li>
+                            </ul>
+                            </li>
+                           
+                   
+						 <li {% if page.name == "settings" %}class="active"{% endif %}>
+                            <a href="#">
+                                <i class="icon-wrench"></i> Settings
+                            </a>
+                        </li>
+                        </ul>
+                    </nav>

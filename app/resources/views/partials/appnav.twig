@@ -1,0 +1,45 @@
+<div id="left-sidebar" class="sidebar">
+        <div class="sidebar-scroll">
+            <div class="user-account">
+                {% if session.user_image %}
+     <img src="{{session.user_image}}" class="rounded-circle user-photo">
+    {% else %}
+     <img src="{{ base_url() }}/images/user.png" class="rounded-circle user-photo">
+    {% endif %}
+    
+               
+                <div class="dropdown">
+                    <span>Welcome {{session.role_name}}, </span>
+                    <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{session.first_name}}&nbsp; {{session.last_name}}</strong></a>
+                    <ul class="dropdown-menu dropdown-menu-right account">
+                        <li><a href="{{ base_url() }}/profile/{{session.user_name}}"><i class="icon-user"></i>My Profile</a></li>
+                        <li><a href="#"><i class="icon-envelope-open"></i>Messages</a></li>
+                        <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ base_url() }}/logout"><i class="icon-power"></i>Logout</a></li>
+                    </ul>
+                     <span> {{session.school_name}} </span>
+                      <span>Welcome {{session.class_name}} </span>
+                </div>
+                <hr>
+            </div>
+    
+{% set userRole = session.role_id %}
+{% if userRole == 1 %}
+{% include 'partials/navigations/admin.twig' %}
+{% elseif userRole == 2 %}
+{% include 'partials/navigations/schooladmin.twig' %}
+{% elseif userRole == 3 %}
+{% include 'partials/navigations/student.twig' %}
+{% elseif userRole == 4 %}
+{% include 'partials/navigations/teacher.twig' %}
+{% elseif userRole == 5 %}
+{% include 'partials/navigations/parent.twig' %}
+{% elseif userRole >0 %}
+{% include 'partials/navigations/guest.twig' %}
+{% else %}
+{% include 'partials/navigations/guest.twig' %}
+{% endif %}
+                       
+        </div>
+    </div>

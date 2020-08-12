@@ -1,0 +1,42 @@
+{% extends 'adminlayout.twig' %}
+{% block headerjs %}
+		<link rel="stylesheet" href="{{ base_url() }}/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
+{% endblock %}
+{% block content %}
+
+<table class="table table-bordered table-striped mb-none" id="datatable-default">
+									<thead>
+										<tr>
+											<th>Unit </th>
+											<th>Fuel</th>
+											<th>Co2 Amount (in Tons)</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+			{% if page.data %}
+            {% for comp_row in page.data %}
+				<tr class="gradeX">
+											<td>{{comp_row.unit_type_name}}</td>
+											<td>{{comp_row.fuel_type_name}}
+											</td>
+											<td>{{comp_row.amount}}</td>
+											<td class="actions">
+												<a href="{{ base_url() }}/edit-calculation-rule/{{comp_row.id}}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+											</td>
+										</tr>
+		 	{% endfor %}
+            {% endif %}
+									</tbody>
+								</table>
+								
+{% endblock %}
+
+
+
+{% block bottomjs %}
+<script src="{{ base_url() }}/assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="{{ base_url() }}/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+<script src="{{ base_url() }}/assets/javascripts/tables/examples.datatables.default.js"></script>
+<script src="{{ base_url() }}/assets/javascripts/tables/examples.datatables.tabletools.js"></script>
+{% endblock %}

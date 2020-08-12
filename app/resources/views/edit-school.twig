@@ -1,0 +1,206 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert/sweetalert.css"/>
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Edit School Profile</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}/manage-schools"> Schools</a></li>
+                            <li class="breadcrumb-item active">Edit School</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        
+                    </div>
+                </div>
+            </div>
+
+			{% if page.school %}	
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                             <div class="alert alert-warning alert-dismissible" role="alert" id="errorMsgBlock" style="display:none;">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <i class="fa fa-warning"></i> <span id="errorMsg">Fill up the form to update School.</span>
+                            </div>
+                 
+                        </div>
+                        <div class="body">
+                             <form name="registerSchoolForm" id="registerSchoolForm" method="post" action="{{ base_url() }}/apis/schools/update" enctype="multipart/form-data">
+							
+							 <div class="row">
+                    <div class="col-lg-3 col-md-12 col-sm-12">                        
+                     <div class="">
+					 <label>Upload Logo </label>
+					 {% if page.school.logo %}
+	 <input type="file" name="logo" class="dropify" data-allowed-file-extensions="jpg png" data-default-file="{{base_url()}}/uploads/{{page.school.logo}}" >
+	{% else %}
+	 <input type="file" name="logo" class="dropify" data-allowed-file-extensions="jpg png" >
+    {% endif %}
+                        </div>
+                    </div>            
+                    <div class="col-lg-9 col-md-12 col-sm-12">
+					<input name="item_id" type="hidden" value="{{page.school.id}}">
+					<input name="status" type="hidden" value="{{page.school.status}}">
+					  <div class="form-group">
+                                    <label>School Name *</label>
+									   <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-university"></i></span>
+                                            </div>
+                                            <input name="name" type="text" value="{{page.school.name}}" class="form-control phone-number" placeholder="Enter school name" data-parsley-trigger="keyup" data-parsley-minlength="5" data-parsley-maxlength="100" data-parsley-minlength-message="Enter school name" data-parsley-validation-threshold="10">
+                                        </div>
+                                </div>
+								
+                         <div class="form-group">
+                                    <label>School Address *</label>
+									   <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                            </div>
+                                            <input name="address" type="text" value="{{page.school.address}}" class="form-control" placeholder="Enter school address here">
+                                        </div>
+                                </div>
+								
+								 <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>City *</label>
+                                    <input name="city" type="text" value="{{page.school.city}}" class="form-control" required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Country *</label>
+                                   <select name="country" class="form-control" data-placeholder="Select">
+								   {% if page.school.country %} 
+								<option value="{{page.school.country}}">{{page.school.country}}</option>	
+			{% endif %}	
+                                         {% if page.countries %}
+{% for countryrow in page.countries %}
+<option value="{{countryrow.id}}">{{countryrow.name}}</option>
+{% endfor %}{% endif %}
+                                        </select>
+                                </div>
+                    </div>
+					 <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Pincode *</label>
+                                    <input name="pincode" type="number" value="{{page.school.pincode}}" class="form-control" required data-parsley-type="number" data-parsley-length="[4,8]">
+                                </div>
+                    </div>            
+                </div>
+                    </div>
+                </div>
+				
+							 <div class="row">
+                    <div class="col-lg-9 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>School Tagline</label>
+                                    <input name="tagline" type="text" value="{{page.school.tagline}}" class="form-control" placeholder="School tagline (Optional)">
+                                </div>
+                    </div>            
+                    <div class="col-lg-3 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Registration No. *</label>
+                                    <input name="registration_no" type="text" value="{{page.school.registration_no}}" class="form-control" required data-parsley-range="[5,20]" required>
+                                </div>
+                    </div>
+                </div>
+				
+			
+				
+				 <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Phone Number *</label>
+                                    <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                            </div>
+                                            <input name="phone" type="text" value="{{page.school.phone}}" class="form-control phone-number" placeholder="Ex: +00 (000) 000-00-00" required data-parsley-length="[8,12]">
+                                        </div>
+                                </div>
+                    </div>            
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>E-mail *</label>
+                                     <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                            </div>
+                                            <input type="text" name="email" value="{{page.school.email}}" class="form-control phone-number" placeholder="Ex: info@domain.com" required>
+                                        </div>
+                                </div>
+                    </div>
+					 <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Website</label>
+                                     <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-globe"></i></span>
+                                            </div>
+                                            <input type="text" name="website" value="{{page.school.website}}" class="form-control phone-number" placeholder="Ex: www.domain.com">
+                                        </div>
+                                </div>
+                    </div>            
+                </div>
+				
+				
+				
+				<br>
+                <button type="submit" class="btn btn-primary">SAVE DETAILS</button>
+                </form>
+                
+                 <div id="registerOverlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:64px;margin:20px auto;"/>
+					<h4 style="margin-bottom: 10px;"><strong>Updating School Profile ...</strong></h4>
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+                </div>
+                </div>
+                </div>
+				
+            </div>
+
+			
+        </div>
+		{% else %}
+		{% endif %}
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/register_school.js"></script>
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<script src="{{ base_url() }}/vendor/parsleyjs/js/parsley.min.js"></script>
+<script>
+    $(function() {
+        //$('#registerSchoolForm').parsley();
+    });
+    </script>
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

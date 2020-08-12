@@ -1,0 +1,113 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/multi-select/css/multi-select.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/><link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+       <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Take Assignment</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}/admin-dashboard"><i class="icon-home"></i></a></li>                            
+                             <li class="breadcrumb-item"><a href="{{ base_url() }}/manage-submissions"> My Assignments</a></li>
+                            <li class="breadcrumb-item active">Take Evaluation</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                         <a type="button" href="{{ base_url() }}/view-assignment/{{page.data.qcode}}" class="btn btn-primary">View Assignment</a>
+                    </div>
+                </div>
+            </div>
+
+
+<div class="row clearfix">
+<div class="col-lg-4 col-md-12 col-sm-12">
+{% include 'widgets/assignment_card.twig' %}
+</div>
+<div class="col-lg-8 col-md-12 col-sm-12">
+<div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Submit Your Entry</h2>
+                        </div>
+                        <div class="body">
+                            <form class="form-auth-small" name="createSubmissionForm" id="createSubmissionForm" action="{{ base_url() }}/apis/submissions/create" method="POST" novalidate>
+							 <div class="row">
+                      <input type="hidden" name="assignment_id" class="form-control" value="{{page.data.id}}" required>
+                               
+                               <input type="hidden" name="user_id" value="{{session.userID}}"/>
+					<div class="col-lg-12 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" name="title" class="form-control"  placeholder="Enter your title" required>
+                               
+                                </div>
+                    </div>
+                </div>
+				
+				
+			 <div class="row">
+                 <div class="col-lg-12 col-md-12 col-sm-12">
+                         <div class="form-group">
+                             <label>Content</label>
+                                    <textarea class="form-control" name="content" rows="5" required></textarea>
+                                </div>
+                    </div>
+                                       
+				</div><br>
+                                <button type="submit" class="btn btn-primary">SUBMIT ASSIGNMENT</button>
+								
+				</div>
+				
+                            </form>
+                            <div id="form_overlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:32px;margin:10px auto;"/>
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Processing Request...</strong></h5>
+					<p>Please wait...</p>
+					</div>					
+					</div>
+                        </div>
+                    </div>
+                </div>
+
+</div>
+</div>
+              
+            
+
+            
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/app.js"></script>
+<script src="{{ base_url() }}/scripts/submit-assignment.js"></script>
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<script>
+$('.select2').select2();
+</script> 
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

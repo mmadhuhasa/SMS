@@ -1,0 +1,145 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+<link rel="stylesheet" href="{{ base_url() }}/assets/vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/multi-select/css/multi-select.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/parsleyjs/css/parsley.css">
+<link rel="stylesheet" href="{{ base_url() }}/assets/vendor/parsleyjs/css/parsley.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+       <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Edit Assignment Submission</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}/admin-dashboard"><i class="icon-home"></i></a></li>                            
+                             <li class="breadcrumb-item"><a href="{{ base_url() }}/manage-assignment-submissions"> Assignment Submissions</a></li>
+                            <li class="breadcrumb-item active">Edit Assignment Submissions</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        
+                    </div>
+                </div>
+            </div>
+
+                       <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Submissions Details</h2>
+                        </div>
+                        <div class="body">
+                            <form class="form-auth-small" name="updateAssignment_SubmissionForm" id="updateAssignment_SubmissionForm" action="{{ base_url() }}/apis/assignment_submissions/update" method="POST" novalidate>
+							 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Assignment Id</label>
+                                    <input type="text" name="assignment_id" class="form-control" value="{{page.data.assignment_id}}" placeholder="Enter your assignment id" required>
+                               
+                               <input type="hidden" name="user_id" value="{{session.userID}}"/>
+                                </div>
+                    </div>
+                     
+					<div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" name="title" class="form-control" value="{{page.data.title}}" placeholder="Enter your title" required>
+                               
+                                </div>
+                    </div>
+                </div>
+			
+				
+				
+				<div class="row">
+				<div class="col-lg-6 col-md-12 col-sm-12">                        
+                         <div class="form-group">
+                                    <label>Date Submitted</label>
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input name="date_submitted" type="text" value="{{page.data.date_submitted}}" class="form-control" readonly>
+                                        <div class="input-group-append">                                            
+                                            <button class="btn btn-outline-secondary" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div> 
+                          
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" name="status" data-placeholder="Select" required>
+                                           
+                                            <option>Active</option>
+                                            <option>Pending</option>
+                                            <option>Blocked</option>
+                                        </select>
+                                </div>
+                    </div>
+					
+                </div>
+				
+				
+				 <div class="row">
+                    
+
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Content</label>
+                                    <textarea class="form-control" name="content" row="3" required>{{page.data.content}}</textarea>
+                                </div>
+                    </div>					
+                                       
+				</div><br>
+                                <button type="submit" class="btn btn-primary">Update Submission</button>
+								
+				</div>
+				
+                            </form>
+                            <div id="form_overlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:32px;margin:10px auto;"/>
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Processing Request...</strong></h5>
+					<p>Please wait...</p>
+					</div>					
+					</div>
+                        </div>
+                    </div>
+                </div>
+			
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/app.js"></script>
+<script src="{{ base_url() }}/scripts/create_assignment_submission.js"></script>
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<script src="{{ base_url() }}/vendor/parsleyjs/js/parsley.min.js"></script>
+    
+
+<script>
+$('.select2').select2();
+</script> 
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

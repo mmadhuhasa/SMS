@@ -1,0 +1,104 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/fixedeader/dataTables.fixedcolumns.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/fixedeader/dataTables.fixedheader.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Manage Topics</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}/add-new-module"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item">List Topics</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        <a href="{{ base_url() }}/create-new-topic"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> <span>Add New Topic</span></button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row clearfix">
+              
+                <div class="col-lg-12">
+                    <div class="card">
+                       <div class="body">
+						<div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Subject</th>
+                                        <th>Class</th>
+										<th>Description</th>
+                                       {% if page.adminMode %} <th>School</th> {% endif %}
+                                         <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                      <th>Title</th>
+                                        <th>Subject</th>
+                                         <th>Class</th>
+										<th>Description</th>
+										 {% if page.adminMode %} <th>School</th> {% endif %}
+                                         <th>Actions</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+{% if page.data %}
+{% for row in page.data %}
+                                    <tr>
+                         
+                                        <td>{{row.title}}</td>
+										<td>{{row.subject_name}}</td>
+                                        <td>{{row.class_name}}</td>
+                                        <td>{{row.description}}</td>
+									
+                                         {% if page.adminMode %} 
+										  <td><a href="{{ base_url() }}/view-school/{{row.schoolCode}}">{{row.school_name}}</a></td>
+										  {% endif %}
+										
+                                         <td class="actions">
+                                            <a href="{{ base_url() }}/edit-topic/{{row.id}}" class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <a data-id="{{row.id}}" class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+{% endfor %}
+{% endif %}
+                                </tbody>
+                            </table>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/app.js"></script>
+<script src="{{ base_url() }}/scripts/list_topics.js"></script>
+<script src="{{ base_url() }}/assets/bundles/datatablescripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.html5.min.js"></script>
+<script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.print.min.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+<script src="{{ base_url() }}/assets/js/pages/tables/jquery-datatable.js"></script>
+{% endblock %}

@@ -1,0 +1,218 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/multi-select/css/multi-select.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+<link rel="stylesheet" href="{{ base_url() }}/vendor/summernote/dist/summernote.css"/>
+
+<link rel="stylesheet" href="{{ base_url() }}/vendor/parsleyjs/css/parsley.css">
+
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+       <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Add New E-Content</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}/admin-dashboard"><i class="icon-home"></i></a></li>                            
+                             <li class="breadcrumb-item"><a href="{{ base_url() }}/manage-assignments"> Manage E-Contents</a></li>
+                            <li class="breadcrumb-item active">New E-Content</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        
+                    </div>
+                </div>
+            </div>
+
+ <form id="create-post-form" method="post" novalidate>
+            <div class="card clearfix">
+			 <div class="body">
+                            <div class="form-group">
+							 <label>Post Title</label>
+                                <input type="text" class="form-control" placeholder="Enter title" />
+                            </div>
+                   
+               <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Select Class</label>
+                                     <select class="form-control show-tick ms select2" data-placeholder="Select">
+                                    <option value="">Select a class</option>
+{% if page.classes %}
+{% for row in page.classes %}
+  <option value="{{row.id}}">{{row.name}}</option>
+{% endfor %}
+{% endif %}
+                                        </select>
+                                </div>
+                    </div>          
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Select Subject</label>
+                                    <select class="form-control show-tick ms select2" data-placeholder="Select">                                          
+                                            <option>English</option>
+											<option>Hindi</option>
+                                            <option>Mathematics</option>
+                                            <option>Science</option>
+											<option>Social Science</option>
+                                        </select>
+                                </div>
+                    </div>
+					 <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Select Topic</label>
+                                    <select class="form-control show-tick ms select2" data-placeholder="Select">                                         
+                                            <option>Acids and Bases</option>
+                                            <option>Our Environment</option>
+                                            <option>Metals and Non-Metals</option>
+											<option>Cells & Tissues</option>
+											<option>The Human Body</option>
+                                        </select>
+                                </div>
+                    </div>
+                </div>
+				
+			<div class="row clearfix">
+			 <div class="col-lg-12 col-md-12 col-sm-12">
+			 <div class="form-group">
+             <label>Select Content Category</label>
+			 <select class="form-control show-tick">
+                                <option>Select Category</option>
+                                <option>Image Post</option>
+                                <option>Video Post</option>
+                                <option>PDF Document</option>
+                                <option>External Link</option>
+                            </select>
+							</div>
+							
+                            <div class="form-group m-t-20 m-b-20">
+							<label>Content Banner</label>
+                                <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                                <small id="fileHelp" class="form-text text-muted">Enter formatted content description here.</small>
+                            </div>
+							
+							<label>Compose Content Body</label>
+                            <div class="summernote">                               
+                            </div></div>
+			 </div>         
+       </div></div>
+			
+
+              <div class="card clearfix">
+                        <div class="header">
+                            <h2>UPLOAD IMAGE(S) <small>Remove the image</small></h2>
+                        </div>
+                        <div class="body">
+                        
+                            <input type="file" id="dropify-event">
+                        </div>
+                    </div>
+
+                <div class="card clearfix">
+                        <div class="header">
+                            <h2>VIDEO LINK <small>Enter the link of the video below.</small></h2>
+                        </div>
+                        <div class="body">
+                             <input type="text" class="form-control" placeholder="Enter Video URL e.g. https://www.youtube.com/897656711" />
+                        </div>
+                    </div>  
+
+
+ <div class="card clearfix">
+                        <div class="header">
+                            <h2>POST PREFERENCES <small>Set up post publishing preferences .</small></h2>
+                        </div>
+                        <div class="body">
+
+                          <div class="form-group">
+                                    <label>Check all that apply</label>
+                                    <br/>
+
+<div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="is_published" name="is_published">
+    <label class="custom-control-label" for="is_published">Save this post as Draft</label>
+  </div>
+
+ <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="is_private" name="is_private">
+    <label class="custom-control-label" for="is_private">Do not display outside school members.</label>
+  </div>
+
+   <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="is_restricted" name="is_restricted">
+    <label class="custom-control-label" for="is_restricted">Do not display outside specified class</label>
+  </div>
+
+   <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="display_author" name="display_author" checked>
+    <label class="custom-control-label" for="display_author">Display author name in post</label>
+  </div>
+
+   <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="display_organization" name="display_organization" checked>
+    <label class="custom-control-label" for="display_organization">Display organization name in post</label>
+  </div>
+
+     <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="allow_likes" name="allow_likes" checked>
+    <label class="custom-control-label" for="allow_likes">Allow people to like this post</label>
+  </div>
+
+     <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="allow_comments" name="allow_comments" checked>
+    <label class="custom-control-label" for="allow_comments">Allow people to comment on this post</label>
+  </div>
+
+                                       
+                                </div>
+
+
+                             
+                        </div>
+                    </div> 
+
+                    
+			<div class="row clearfix">
+			<div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:30px;">
+			<button type="button" class="btn btn-primary m-t-20">Post Content</button>
+			 </div></div>
+        </div></div> 
+			</form>
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<script src="{{ base_url() }}/vendor/parsleyjs/js/parsley.min.js"></script>
+
+<script src="{{ base_url() }}/vendor/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+<script src="{{ base_url() }}/vendor/summernote/dist/summernote.js"></script>
+<script>
+    $(function() {
+       //$('.select2').select2();
+$('#create-post-form').parsley();
+    });
+    </script>
+{% endblock %}

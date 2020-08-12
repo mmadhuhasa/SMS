@@ -1,0 +1,184 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Register School</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}/list-schools"> Schools</a></li>
+                            <li class="breadcrumb-item active">Register</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                             <div class="alert alert-warning alert-dismissible" role="alert" id="errorMsgBlock" style="display:block;">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <i class="fa fa-warning"></i> <span id="errorMsg">Fill up the form to register a School.</span>
+                            </div>
+                            
+                            <h2>School Details</h2>
+                        </div>
+                        <div class="body">
+                             <form name="registerSchoolForm" id="registerSchoolForm" method="post" action="{{ base_url() }}/apis/schools/create" enctype="multipart/form-data" novalidate>
+							
+							 <div class="row">
+                    <div class="col-lg-3 col-md-12 col-sm-12">                        
+                     <div class="">
+					 <label>Upload Logo</label>
+                            <input type="file" class="dropify" data-allowed-file-extensions="jpg png">
+                        </div>
+                    </div>            
+                    <div class="col-lg-9 col-md-12 col-sm-12">
+					  <div class="form-group">
+                                    <label>School Name *</label>
+									   <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-university"></i></span>
+                                            </div>
+                                            <input name="name" type="text" class="form-control" placeholder="Enter school name" required>
+                                        </div>
+                                </div>
+								
+                         <div class="form-group">
+                                    <label>School Address *</label>
+									   <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                            </div>
+                                            <input name="address" type="text" class="form-control phone-number" placeholder="Enter school address here" required>
+                                        </div>
+                                </div>
+								
+								 <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>City *</label>
+                                    <input name="city" type="text" class="form-control" required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Country *</label>
+                                    <input name="country" type="text" class="form-control" required>
+                                </div>
+                    </div>
+					 <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Pincode *</label>
+                                    <input name="pincode" type="text" class="form-control" required>
+                                </div>
+                    </div>            
+                </div>
+                    </div>
+                </div>
+				
+							 <div class="row">
+                    <div class="col-lg-9 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>School Tagline</label>
+                                    <input name="tagline" type="text" class="form-control" placeholder="School tagline (Optional)">
+                                </div>
+                    </div>            
+                    <div class="col-lg-3 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Registration No. *</label>
+                                    <input name="registration_no" type="text" class="form-control" required>
+                                </div>
+                    </div>
+                </div>
+				
+			
+				
+				 <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Phone Number *</label>
+                                    <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                            </div>
+                                            <input name="phone" type="text" class="form-control phone-number" placeholder="Ex: +00 (000) 000-00-00" required>
+                                        </div>
+                                </div>
+                    </div>            
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>E-mail *</label>
+                                     <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                            </div>
+                                            <input type="text" name="email" class="form-control phone-number" placeholder="Ex: info@domain.com" required>
+                                        </div>
+                                </div>
+                    </div>
+					 <div class="col-lg-4 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Website</label>
+                                     <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-globe"></i></span>
+                                            </div>
+                                            <input type="text" name="website" class="form-control phone-number" placeholder="Ex: www.domain.com">
+                                        </div>
+                                </div>
+                    </div>            
+                </div>
+				
+				
+				
+				<br>
+                <button type="submit" class="btn btn-primary">SAVE DETAILS</button>
+                </form>
+                
+                 <div id="registerOverlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:64px;margin:20px auto;"/>
+					<h4 style="margin-bottom: 10px;"><strong>Registering School ...</strong></h4>
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+                </div>
+                </div>
+                </div>
+				
+            </div>
+
+			
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/register_school.js"></script>
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

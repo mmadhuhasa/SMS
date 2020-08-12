@@ -1,0 +1,70 @@
+<div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Submissions Details</h2>
+                        </div>
+                        <div class="body">
+                            <form class="form-auth-small" name="CreateAssignmentSubmissionForm" id="CreateAssignmentSubmissionForm" action="{{ base_url() }}/apis/assignment_submissions/create" method="POST" novalidate>
+							 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Assignment Id</label>
+                                    <input type="text" name="assignment_id" class="form-control" placeholder="Enter your assignment id" required>
+                               
+                               <input type="hidden" name="user_id" value="{{session.userID}}"/>
+                                </div>
+                    </div>
+                     
+					<div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" name="title" class="form-control"  placeholder="Enter your title" required>
+                               
+                                </div>
+                    </div>
+                </div>
+			
+				
+				
+				<div class="row">
+                          
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" name="status" data-placeholder="Select" required>
+                                           
+                                            <option>Active</option>
+                                            <option>Pending</option>
+                                            <option>Blocked</option>
+                                        </select>
+                                </div>
+                    </div>
+					
+                </div>
+				
+				
+			 <div class="row">
+                 <div class="col-lg-12 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Content</label>
+                                    <textarea class="form-control" name="content" row="5" required></textarea>
+                                </div>
+                    </div>					
+                                       
+				</div><br>
+                                <button type="submit" class="btn btn-primary">SUBMIT ASSIGNMENT</button>
+								
+				</div>
+				
+                            </form>
+                            <div id="form_overlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:32px;margin:10px auto;"/>
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Processing Request...</strong></h5>
+					<p>Please wait...</p>
+					</div>					
+					</div>
+                        </div>
+                    </div>
+                </div>

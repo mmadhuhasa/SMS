@@ -1,0 +1,124 @@
+<div class="card">
+                        <div class="body">
+                        <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="receipt-left">
+
+                                     {% if page.data.faculty_image %}
+                                      <img class="img-fluid" src="{{page.data.faculty_image}}" style="width: 71px; border-radius: 43px;">
+                                      {% else %}
+                                       <img class="img-fluid" src="{{ base_url() }}/images/user.png" style="width: 71px; border-radius: 43px;">
+                                       {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 text-right">
+                                    <img class="img-fluid" src="{{ base_url() }}/images/logo.png" style="width: 71px; border-radius: 43px;">
+                                    <p class="mb-0"><b>Class :</b> {{page.data.class_name}}</p>
+                                     <p class="mb-0"><b>Subject :</b> {{page.data.subject_name}}</p>
+                                    <p class="mb-0">Max. Marks:  {{page.data.class_name}}</p>
+                                    <p class="mb-0">Last Submission:  {{page.data.date_submission}}</p>
+                                </div>
+                            </div>            
+                                             
+                            <div class="row clearfix">                                
+                                <div class="col-lg-8 col-md-12">
+                                    <h6>{{page.data.faculty_name}}<small>&nbsp; | &nbsp; #8971</small></h6>
+                                   
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-left">
+                                    <h5>{{page.data.title}}</h5>
+                                </div>
+                            </div>  
+                            
+                             <div class="row clearfix">
+                                <div class="col-lg-8 col-md-12">
+                                    <p class="mb-0"><b>Date :</b> 15 May 2018</p>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                </div>
+                            </div>
+                             {% if page.showAttachments %}
+                            <div class="table-responsive" style="display:block;">
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Attachments</th>
+                                            <th class="text-right">Size</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-md-9">Project Abstract</td>
+                                            <td class="col-md-3 text-right"><i class="fa fa-inr"></i> 15 KB <a href="">Download</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>                    
+                             {% endif %}
+                            
+                            
+                            
+              <hr>              
+        <div class="row clearfix" style="padding:20px;">
+               <form name="evaluateAssignmentForm" id="evaluateAssignmentForm" method="post" action="{{ base_url() }}/apis/assignments/evaluations" novalidate>
+				 <div class="alert alert-warning alert-dismissible" role="alert" id="errorMsgBlock" style="display:none;">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <i class="fa fa-warning"></i> <span id="errorMsg">Fill up the form to submit evaluation for this assignment.</span>
+                            </div>			
+				<a href="{{base_url()}}/view-assignment-submission">View Submission Page</a>
+						
+				 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Marks Obtained</label>
+                                    <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-info"></i></span>
+                                            </div>
+                                            <input name="marks" type="number" class="form-control" placeholder="Enter obtained marks" required>
+                                             <div class="input-group-append">
+                                                <span class="input-group-text">/ 100</span>
+                                            </div>
+                                        </div>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Grade</label>
+                                     <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                                            </div>
+                                            <input type="text" name="grade" class="form-control" placeholder="Enter Grade (Optional)" required>
+                                        </div>
+                                </div>
+                    </div>
+			        
+                </div>
+				
+					 <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Remarks </label>
+                                    <input name="remarks" type="text" class="form-control" placeholder="Add a remark (Optional)">
+                                </div>
+                    </div>            
+                </div>
+				
+			
+				
+				
+				<br>
+                <button type="submit" class="btn btn-primary">FINISH EVALUATION</button>
+                </form>
+                
+                 <div id="formOverlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:64px;margin:20px auto;"/>
+					<h4 style="margin-bottom: 10px;"><strong>Saving Result ...</strong></h4>
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+        </div>        
+                        </div>
+                    </div>

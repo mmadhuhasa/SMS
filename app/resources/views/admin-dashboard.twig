@@ -1,0 +1,348 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/chartist/css/chartist.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                       <h2>Dashboard</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item active">My Dashboard</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm">
+                            <div class="sparkline text-left" data-type="line" data-width="8em" data-height="20px" data-line-Width="1" data-line-Color="#00c5dc"
+                                data-fill-Color="transparent">3,5,1,6,5,4,8,3</div>
+                            <span>Visitors</span>
+                        </div>
+                        <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm">
+                            <div class="sparkline text-left" data-type="line" data-width="8em" data-height="20px" data-line-Width="1" data-line-Color="#f4516c"
+                                data-fill-Color="transparent">4,6,3,2,5,6,5,4</div>
+                            <span>Visits</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card top_counter">
+                        <div class="body">
+						<a href="{{base_url()}}/manage-schools">
+						<div class="icon text-info"><i class="fa fa-building-o"></i> </div>
+                            <div class="content">
+                                <div class="text">Total Schools</div>
+                                <h5 class="number">11</h5>
+                            </div>
+						</a>
+                            
+                            <hr>
+							<a href="{{base_url()}}/manage-users">
+                            <div class="icon text-warning"><i class="fa fa-user"></i> </div>
+                            <div class="content">
+                                <div class="text">Active User Accounts</div>
+                                <h5 class="number">830</h5>
+                            </div>
+							</a>
+							<hr>
+							<a href="{{base_url()}}/manage-users?status=pending">
+                            <div class="icon text-warning"><i class="fa fa-user-circle"></i> </div>
+                            <div class="content">
+                                <div class="text">Pending Accounts</div>
+                                <h5 class="number">25</h5>
+                            </div>
+							</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card top_counter">
+                        <div class="body">
+						<a href="{{base_url()}}/manage-classes">
+						<div class="icon"><i class="fa fa-graduation-cap"></i> </div>
+                            <div class="content">
+                                <div class="text">Classes</div>
+                                <h5 class="number">11</h5>
+                            </div>
+							</a>
+							<hr>
+							<a href="{{base_url()}}/manage-subjects">
+                            <div class="icon text-warning"><i class="fa fa-briefcase"></i> </div>
+                            <div class="content">
+                                <div class="text">Subjects</div>
+                                <h5 class="number">14</h5>
+                            </div>
+							</a>
+                            <hr>
+							<a href="{{base_url()}}/manage-topics">
+							 <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
+                            <div class="content">
+                                <div class="text">Topics</div>
+                                <h5 class="number">173</h5>
+                            </div>
+							</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card top_counter">
+                        <div class="body">
+						<a href="#">
+                            <div class="icon text-danger"><i class="fa fa-credit-card"></i> </div>
+                            <div class="content">
+                                <div class="text">Fees Paid</div>
+                                <h5 class="number">&#8377;38,205</h5>
+                            </div>
+							</a>
+                            <hr>
+							<a href="{{base_url()}}/manage-assignments">
+                            <div class="icon text-success"><i class="fa fa-pencil"></i> </div>
+                            <div class="content">
+                                <div class="text">Total Assignments</div>
+                                <h5 class="number">125</h5>
+                            </div>
+							</a>
+							<hr>
+							<a href="{{base_url()}}/manage-econtents">
+                            <div class="icon text-success"><i class="fa fa-file-pdf-o"></i> </div>
+                            <div class="content">
+                                <div class="text">E-Contents</div>
+                                <h5 class="number">538</h5>
+                            </div>
+							</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card top_counter">
+                        <div class="body">
+						<a href="#">
+                            <div class="icon"><i class="fa fa-envelope"></i> </div>
+                            <div class="content">
+                                <div class="text">SMS Sent</div>
+                                <h5 class="number">281</h5>
+                            </div>
+							</a>
+                            <hr>
+							<a href="{{base_url()}}/manage-schools">
+                            <div class="icon text-success"><i class="fa fa-envelope-o"></i> </div>
+                            <div class="content">
+                                <div class="text">Messages Received</div>
+                                <h5 class="number">528</h5>
+                            </div>
+							</a>
+							<hr>
+							<a href="{{base_url()}}/school-calendar">
+                            <div class="icon text-success"><i class="fa fa-bullhorn"></i> </div>
+                            <div class="content">
+                                <div class="text">Announcements</div>
+                                <h5 class="number">78</h5>
+                            </div>
+							</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<!----- User Distribution Stats ----->
+            <div class="row clearfix">
+              <div class="col-lg-4 col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>USERS DISTRIBUTION<small>Showing All Schools</small></h2>
+                        </div>
+                        <div class="body text-center">                            
+                            <div class="Popular_Cryptocurrency">6,4,8</div>                            
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover m-b-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <img src="{{ base_url() }}/images/student.png"  width="35" />
+                                            </td>
+                                            <td>
+                                                <small>Total Students</small>
+                                                <h5 class="m-b-0">2735</h5>
+                                            </td>
+                                            <td>
+                                                <div class="sparkline m-t-10" data-type="bar" data-width="97%" data-height="26px" data-bar-Width="4" data-bar-Spacing="4" data-bar-Color="#393c3e">-2,3,5,6,7,-8,7,4,6,-5</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="{{ base_url() }}/images/teacher.png"  width="35" />
+                                            </td>
+                                            <td>
+                                                <small>Total Teachers</small>
+                                                <h5 class="m-b-0">387</h5>
+                                            </td>
+                                            <td>
+                                                <div class="sparkline m-t-10" data-type="bar" data-width="97%" data-height="26px" data-bar-Width="4" data-bar-Spacing="4" data-bar-Color="#393c3e">8,5,-3,2,2,3,-5,-6,-7,5</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="{{ base_url() }}/images/parent.png"  width="35" />
+                                            </td>
+                                            <td>
+                                                <small>Total Parents</small>
+                                                <h5 class="m-b-0">2738</h5>
+                                            </td>
+                                            <td>
+                                                <div class="sparkline m-t-10" data-type="bar" data-width="97%" data-height="26px" data-bar-Width="4" data-bar-Spacing="4" data-bar-Color="#393c3e">-6,-5,4,6,5,5,-2,3,4,-2</div>
+                                            </td>
+                                        </tr>                                 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="card user_statistics">
+                        <div class="header">
+                            <h2>User Statistics</h2>
+                            <ul class="header-dropdown">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="javascript:void(0);">All Students</a></li>
+                                        <li><a href="javascript:void(0);">All Teachers</a></li>
+                                        <li><a href="javascript:void(0);">All Parents</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">                            
+                            <div id="user_statistics" class="ct-chart"></div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <!----- User Distribution Stats ----->
+			
+			
+
+           <!---- RECENT SCHOOLS ----->
+           <div class="row clearfix">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Recently Added Schools</h2>
+                            <ul class="header-dropdown">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="javascript:void(0);">Manage Schools</a></li>
+                                        <li><a href="javascript:void(0);">Compare Schools</a></li>
+                                        <li><a href="javascript:void(0);">Schools Usage</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th style="width:60px;">#</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+											<th>Users</th>
+                                            <th>Connections</th>                                    
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>St. Johns High School</td>
+                                            <td>Porterfield 508 Virginia Street Chicago, IL 60653</td>
+                                            <td>31</td>
+											<td>346</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>Kids Camp School</td>
+                                            <td>Marathalli Road, Bangalore</td>
+                                            <td>13</td>
+											<td>56</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+										<tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>Horizon International School</td>
+                                            <td>Porterfield 508 Virginia Street Chicago, IL 60653</td>
+                                            <td>761</td>
+											<td>7496</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+										<tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>Teresa Foundation School</td>
+                                            <td>Porterfield 508 Virginia Street Chicago, IL 60653</td>
+                                            <td>31</td>
+											<td>346</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+										<tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>Dolphin Public School</td>
+                                            <td>Porterfield 508 Virginia Street Chicago, IL 60653</td>
+                                            <td>0</td>
+											<td>0</td>
+                                            <td><span class="badge badge-success">Pending</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!---- RECENT SCHOOLS ----->			
+
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                     {% include 'widgets/activities.twig' %}
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    {% include 'widgets/usage_stats.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/assets/bundles/datatablescripts.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/tables/jquery-datatable.js"></script>
+<script src="{{ base_url() }}/assets/bundles/morrisscripts.bundle.js"></script><!-- Morris Plugin Js -->
+<script src="{{ base_url() }}/assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
+<script src="{{ base_url() }}/assets/bundles/chartist.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/superadmindashboard.js"></script>
+{% endblock %}

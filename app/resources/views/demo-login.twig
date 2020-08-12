@@ -1,0 +1,115 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% endblock %}
+{% block appnav %}
+{% endblock %}
+{% block content %}
+<div class="vertical-align-wrap">
+			<div class="vertical-align-middle auth-main" style="background: url({{ base_url() }}/images/bg-home.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;height: 100%;">
+			<div class="col-lg-8 col-md-8 col-10 offset-lg-3 offset-md-3">
+				<div class="auth-box" style="width: 460px;">
+					<div class="card">
+                        <div class="body">
+                        
+                               <form class="form-auth-small" name="loginForm" id="loginForm" action="{{ base_url() }}/auth/login" method="POST" style="display:block;">
+							 <div>
+                              <p class="lead" style="font-weight:500;margin-bottom:20px;">Login to your account</p>
+                               </div>
+                                <div class="form-group">
+                                    <label for="signin-email" class="control-label sr-only">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" value="user@domain.com" placeholder="Email or Username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signin-password" class="control-label sr-only">Password</label>
+                                    <input type="password" class="form-control" name="password" id="password" value="12345678" placeholder="Password">
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="fancy-checkbox element-left">
+                                        <input type="checkbox">
+                                        <span>Remember me</span>
+                                    </label>								
+                                </div>
+                                <button type="submit" id="submitBtn" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+                                <div class="bottom">
+                            
+                                    <span>This is a demo access link. Login using given credentials to get access. Already have an account? <a href="{{ base_url() }}/login">Login here</a></span>
+                                </div>
+								<div class="float-left m-r-20 m-l--5 m-b-20">
+								<div class="btn-group" style="display:block;text-align:center;" id="selector" role="group" aria-label="Select Your Role">
+                                <button type="button" class="btn btn-success" value="2">Admin</button>
+                                <button type="button" class="btn btn-warning" value="4">Teacher</button>
+                                <button type="button" class="btn btn-info" value="5">Parent</button>
+								<button type="button" class="btn btn-danger" value="3">Student</button>
+								<button type="button" class="btn btn-secondary" value="6">Manager</button>
+                            </div>
+							</div>
+                            </form>
+                            
+                              <div id="login_overlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;display:block;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:32px;margin:10px auto;"/>
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Authenticating...</strong></h5>
+					<p>Please wait...</p>
+					</div>					
+					</div>
+					
+                        </div>
+                    </div>
+				   </div>
+				</div>
+			</div>
+		</div>
+		</div>
+{% endblock %}
+{% block footer_scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+
+$('#selector button').click(function() {
+    var roleID = $(this).val();
+    switch(roleID){
+        case "2":
+            $('#email').val("school@gmail.com");
+            $('#password').val("12345678");
+            //$('#submitBtn').style.backgroundColor = "red";
+            break;
+            
+        case "3":
+            $('#email').val("student@gmail.com");
+            $('#password').val("12345678");
+            break;
+            
+        case "4":
+            $('#email').val("teacher@gmail.com");
+            $('#password').val("12345678");
+            break;
+            
+        case "5":
+            $('#email').val("parent@gmail.com");
+            $('#password').val("12345678");
+            break;
+            
+         case "6":
+            $('#email').val("manager@gmail.com");
+            $('#password').val("12345678");
+            break;    
+    }
+    //alert("clicked "+roleID);
+    //alert("clicked");
+   
+});
+
+
+    });
+</script>
+<script src="{{ base_url() }}/scripts/app.js"></script>
+<script src="{{ base_url() }}/scripts/front_script.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

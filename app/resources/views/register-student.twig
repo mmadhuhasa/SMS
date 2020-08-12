@@ -1,0 +1,272 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/multi-select/css/multi-select.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ base_url() }}/vendor/dropify/css/dropify.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+{% set debugView = true %}
+       <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                        <h2>Register New Student</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}/admin-dashboard"><i class="icon-home"></i></a></li>                            
+                             <li class="breadcrumb-item"><a href="{{ base_url() }}/manage-students"> Students</a></li>
+                            <li class="breadcrumb-item active">Register</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                         <button type="button" class="btn btn-default launchToastr" data-context="info" data-message="Fill up the form below to register a new student account." data-position="top-full-width">Help</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                             <div class="alert alert-warning alert-dismissible" role="alert" id="errorMsgBlock">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <i class="fa fa-warning"></i> <span id="errorMsg">Fill up the form to register a student.</span>
+                            </div>
+                            
+                            <h2>Student Details</h2>
+                        </div>
+                        <div class="body">
+                            <form name="registrationForm" id="registrationForm" method="post" action="{{ base_url() }}/auth/registration" novalidate>
+                                 <input name="role_id" type="hidden" class="form-control" value="3" required>
+                                 <input name="school_id" type="hidden" class="form-control" value="{{session.school_id}}" required>
+                                  <input name="autogenerate_pass" type="hidden" class="form-control" value="1" required>
+                                  <input name="auth_account_generate" type="hidden" class="form-control" value="1" required>
+                                  
+							 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">               
+                      <div class="form-group">
+                                    <label>Admission No.</label>
+                                    <input name="admission_no" type="text" class="form-control" {% if debugView %} value="809765" {% endif %} required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Roll Number</label>
+                                    <input name="roll_no" type="number" class="form-control" {% if debugView %} value="11" {% endif %} required>
+                                </div>
+                    </div>
+                </div>
+				
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>First Name</label>
+                                    <input name="first_name" type="text" class="form-control" {% if debugView %} value="Nics" {% endif %} required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input name="last_name" type="text" class="form-control" {% if debugView %} value="Josh" {% endif %} required>
+                                </div>
+                    </div>
+                </div>
+				
+				
+				<div class="row">
+				     <!--<div class="col-lg-6 col-md-12 col-sm-12">                        
+                                    <label>Select Class</label>
+                                     <select class="form-control show-tick ms select2" data-placeholder="Select" style="border: 0px solid #ced4d;">
+                                            <option>I</option>
+                                            <option>II</option>
+                                            <option>III</option>
+											<option>IV</option>
+											<option>V</option>
+											<option>VI</option>
+											<option>VII</option>
+											<option>VIII</option>
+											<option>IX</option>
+											<option>X</option>
+                                        </select>
+                    </div>   -->
+                    
+                    
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Select Class</label>
+                                     <select name="class" class="form-control" data-placeholder="Select">
+                                         {% if page.classes %}
+{% for classrow in page.classes %}
+<option value="{{classrow.id}}">{{classrow.name}}</option>
+{% endfor %}{% endif %}
+                                        </select>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Select Section</label>
+                                    <select  name="section" class="form-control" data-placeholder="Select">
+                                           
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                        </select>
+                                </div>
+                    </div>
+                </div>
+				
+				
+				
+				 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Select Gender</label>
+                                    <select  name="gender" class="form-control" data-placeholder="Select">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input  name="dob" type="text" class="form-control">
+                                        <div class="input-group-append">                                          
+                                            <button class="btn btn-outline-secondary" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+				
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Religion</label>
+                                    <input name="religion" type="text" class="form-control" {% if debugView %} value="Being Human" {% endif %} required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>Caste</label>
+                                    <input name="caste" type="text" class="form-control" {% if debugView %} value="Human" {% endif %} required>
+                                </div>
+                    </div>
+                </div>
+				
+				<div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Mobile No.</label>
+                                    <input name="mobile" type="number" maxLength="10" class="form-control" {% if debugView %} value="9878903431" {% endif %} required>
+                                </div>
+                    </div>            
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                         <div class="form-group">
+                                    <label>E-Mail</label>
+                                    <input name="email" type="email" class="form-control" {% if debugView %} value="testing@tsms.com" {% endif %} required>
+                                </div>
+                    </div>
+                </div>
+				
+				 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                         <div class="form-group">
+                                    <label>Admission Date</label>
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input name="admission_date" type="text" class="form-control">
+                                        <div class="input-group-append">                                            
+                                            <button class="btn btn-outline-secondary" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>           
+                                        <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Blood Group</label>
+                                    <select name="blood_group" class="form-control" data-placeholder="Select">
+                                            <option value="O">O</option>
+                                            <option value="A+">A+</option>
+											<option value="B+">B+</option>
+											<option value="AB+">AB+</option>
+											<option value="A-">A-</option>
+											<option value="B-">B-</option>
+											<option value="AB-">AB-</option>
+                                        </select>
+                                </div>
+                </div>
+				</div>
+				
+				
+				 <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">                        
+                         <div class="form-group">
+                                    <label>City</label>
+                                    <div class="input-group">
+                                        <input name="city" type="text" class="form-control">
+                                    </div>
+                                </div>
+                    </div>           
+                                        <div class="col-lg-6 col-md-12 col-sm-12">                        
+                      <div class="form-group">
+                                    <label>Country</label>
+                                    <select name="country" class="form-control" data-placeholder="Select">
+                                         {% if page.countries %}
+{% for countryrow in page.countries %}
+<option value="{{countryrow.id}}">{{countryrow.name}}</option>
+{% endfor %}{% endif %}
+                                        </select>
+                                </div>
+                </div>
+				</div>
+				
+					<br>
+                <button type="submit" class="btn btn-primary">SAVE STUDENT DETAILS</button>
+                
+
+                            </form>
+                            
+                             <div id="registerOverlay" style="display:none;">
+					<div style="margin: 68px; text-align: center;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:64px;margin:20px auto;"/>
+					<h4 style="margin-bottom: 10px;"><strong>Registering Account ...</strong></h4>
+					<h5>Please wait...</h5>
+					</div>					
+					</div>
+					
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/script.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+<script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
+<script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
+<script src="{{ base_url() }}/vendor/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<script>
+$('.select2').select2();
+</script> 
+<script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
+{% endblock %}

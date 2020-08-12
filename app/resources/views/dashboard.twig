@@ -1,0 +1,458 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/chartist/css/chartist.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/jquery-datatable/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/fullcalendar/fullcalendar.min.css">
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/
+{% endblock %}
+
+{% block header %}
+{% include 'partials/top-header.twig' %}
+{% endblock %}
+
+{% block appnav %}
+{% include 'partials/appnav.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="container">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-5 col-md-8 col-sm-12">                        
+                       <h2>Dashboard</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ base_url() }}"><i class="icon-home"></i></a></li>                            
+                            <li class="breadcrumb-item active">My Dashboard</li>
+                        </ul>
+                    </div>            
+                    <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                        <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm">
+                            <div class="sparkline text-left" data-type="line" data-width="8em" data-height="20px" data-line-Width="1" data-line-Color="#00c5dc"
+                                data-fill-Color="transparent">3,5,1,6,5,4,8,3</div>
+                            <span>Visitors</span>
+                        </div>
+                        <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm">
+                            <div class="sparkline text-left" data-type="line" data-width="8em" data-height="20px" data-line-Width="1" data-line-Color="#f4516c"
+                                data-fill-Color="transparent">4,6,3,2,5,6,5,4</div>
+                            <span>Visits</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<ul class="list-unstyled feeds_widget">
+                                       
+                                        <li class="card dark">
+                                            <a href="{{base_url()}}/profile/{{session.user_name}}">
+                                            <div class="feeds-left"><i class="fa fa-question-circle"></i></div>
+                                            <div class="feeds-body">
+                                                <h4 class="title text-warning">Complete Your Profile <small class="float-right text-muted">ALERT</small></h4>
+                                                <small>Looks like you have not completed your basic personal details.</small>
+                                            </div></a>
+                                        </li>
+                                                                         
+                                    </ul>
+
+
+
+  {% if page.accessorRole == 1 or page.accessorRole == 2 %}       
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card top_counter">
+                        <div class="body">
+                            <div class="icon text-info"><i class="fa fa-user-o"></i> </div>
+                            <div class="content">
+                                <div class="text">Total Students</div>
+                                <h5 class="number">{{page.statsData.numStudents}}</h5>
+                            </div>
+                            <hr>
+                            <div class="icon text-warning"><i class="fa fa-user"></i> </div>
+                            <div class="content">
+                                <div class="text">Total Teachers</div>
+                                <h5 class="number">22</h5>
+                            </div>
+							<hr>
+                            <div class="icon text-warning"><i class="fa fa-user-circle"></i> </div>
+                            <div class="content">
+                                <div class="text">Total Parents</div>
+                                <h5 class="number">258</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="col-lg-4 col-md-6">
+                    <div class="card top_counter">
+                        <div class="body">
+                            <div class="icon text-danger"><i class="fa fa-credit-card"></i> </div>
+                            <div class="content">
+                                <div class="text">Fees Paid</div>
+                                <h5 class="number">&#8377;38,205</h5>
+                            </div>
+                            <hr>
+                            <div class="icon text-success"><i class="fa fa-pencil"></i> </div>
+                            <div class="content">
+                                <div class="text">Total Assignments</div>
+                                <h5 class="number">125</h5>
+                            </div>
+							<hr>
+                            <div class="icon text-success"><i class="fa fa-file-pdf-o"></i> </div>
+                            <div class="content">
+                                <div class="text">E-Contents</div>
+                                <h5 class="number">538</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card top_counter">
+                        <div class="body">
+                            <div class="icon"><i class="fa fa-envelope"></i> </div>
+                            <div class="content">
+                                <div class="text">SMS Sent</div>
+                                <h5 class="number">281</h5>
+                            </div>
+                            <hr>
+                            <div class="icon text-success"><i class="fa fa-envelope-o"></i> </div>
+                            <div class="content">
+                                <div class="text">Messages Received</div>
+                                <h5 class="number">528</h5>
+                            </div>
+							<hr>
+                            <div class="icon text-success"><i class="fa fa-bullhorn"></i> </div>
+                            <div class="content">
+                                <div class="text">Announcements</div>
+                                <h5 class="number">78</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    {% endif %} 
+
+    {% if page.accessorRole == 3 %}   
+    <!----- STATS FOR STUDENTS ---->    
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-6">
+                <a href="{{base_url()}}/attendance">
+                    <div class="card top_counter">
+                        <div class="body">
+                            <div class="icon text-info"><i class="fa fa-check"></i> </div>
+                            <div class="content">
+                                <div class="text">Avg. Attendance</div>
+                                <h5 class="number">{{page.statsData.avgAttendance}} %</h5>
+                            </div>              
+                        </div>
+                    </div></a>
+                </div>
+               
+                <div class="col-lg-4 col-md-6">
+                    <a href="{{base_url()}}/manage-assignments">
+                    <div class="card top_counter">
+                        <div class="body">                   
+                            <div class="icon text-success"><i class="fa fa-pencil"></i> </div>
+                            <div class="content">
+                                <div class="text">Total Assignments</div>
+                                <h5 class="number">{{page.statsData.numTotalAssignments}}</h5>
+                            </div>
+                        </div>
+                    </div></a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                <a href="{{base_url()}}/manage-posts">
+                    <div class="card top_counter">
+                        <div class="body">
+                            <div class="icon text-success"><i class="fa fa-file-pdf-o"></i> </div>
+                            <div class="content">
+                                <div class="text">E-Contents</div>
+                                <h5 class="number">{{page.statsData.numTotalEContents}}</h5>
+                            </div>
+                        </div>
+                    </div></a>
+                </div>
+            </div>
+            <!----- END OF STATS FOR STUDENTS ---->
+    {% endif %}
+
+
+    {% if page.accessorRole == 4 %}   
+    <!----- STATS FOR TEACHERS ---->    
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-6">
+                <a href="{{base_url()}}/attendance">
+                    <div class="card top_counter">
+                        <div class="body">
+                            <div class="icon text-info"><i class="fa fa-check"></i> </div>
+                            <div class="content">
+                                <div class="text">Avg. Attendance</div>
+                                <h5 class="number">{{page.statsData.avgAttendance}} %</h5>
+                            </div>              
+                        </div>
+                    </div></a>
+                </div>
+               
+                <div class="col-lg-4 col-md-6">
+                    <a href="{{base_url()}}/manage-assignments">
+                    <div class="card top_counter">
+                        <div class="body">                   
+                            <div class="icon text-success"><i class="fa fa-pencil"></i> </div>
+                            <div class="content">
+                                <div class="text">Total Assignments</div>
+                                <h5 class="number">{{page.statsData.numTotalAssignments}}</h5>
+                            </div>
+                        </div>
+                    </div></a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                <a href="{{base_url()}}/manage-posts">
+                    <div class="card top_counter">
+                        <div class="body">
+                            <div class="icon text-success"><i class="fa fa-file-pdf-o"></i> </div>
+                            <div class="content">
+                                <div class="text">E-Contents</div>
+                                <h5 class="number">{{page.statsData.numTotalEContents}}</h5>
+                            </div>
+                        </div>
+                    </div></a>
+                </div>
+            </div>
+            <!----- END OF STATS FOR TEACHERS ---->
+    {% endif %}
+
+  {% if page.accessorRole == 1 or page.accessorRole == 2 %} 
+			<!----- User Distribution Stats ----->
+            <div class="row clearfix">
+              <div class="col-lg-4 col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>USERS DISTRIBUTION<small>Dolphin Public School</small></h2>
+                        </div>
+                        <div class="body text-center">                            
+                            <div class="Popular_Cryptocurrency">6,4,8</div>                            
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover m-b-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <img src="{{ base_url() }}/images/student.png"  width="35" />
+                                            </td>
+                                            <td>
+                                                <small>Total Students</small>
+                                                <h5 class="m-b-0">2735</h5>
+                                            </td>
+                                            <td>
+                                                <div class="sparkline m-t-10" data-type="bar" data-width="97%" data-height="26px" data-bar-Width="4" data-bar-Spacing="4" data-bar-Color="#393c3e">-2,3,5,6,7,-8,7,4,6,-5</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="{{ base_url() }}/images/teacher.png"  width="35" />
+                                            </td>
+                                            <td>
+                                                <small>Total Teachers</small>
+                                                <h5 class="m-b-0">387</h5>
+                                            </td>
+                                            <td>
+                                                <div class="sparkline m-t-10" data-type="bar" data-width="97%" data-height="26px" data-bar-Width="4" data-bar-Spacing="4" data-bar-Color="#393c3e">8,5,-3,2,2,3,-5,-6,-7,5</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="{{ base_url() }}/images/parent.png"  width="35" />
+                                            </td>
+                                            <td>
+                                                <small>Total Parents</small>
+                                                <h5 class="m-b-0">2738</h5>
+                                            </td>
+                                            <td>
+                                                <div class="sparkline m-t-10" data-type="bar" data-width="97%" data-height="26px" data-bar-Width="4" data-bar-Spacing="4" data-bar-Color="#393c3e">-6,-5,4,6,5,5,-2,3,4,-2</div>
+                                            </td>
+                                        </tr>                                 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="card user_statistics">
+                        <div class="header">
+                            <h2>User Statistics</h2>
+                            <ul class="header-dropdown">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="javascript:void(0);">All Students</a></li>
+                                        <li><a href="javascript:void(0);">All Teachers</a></li>
+                                        <li><a href="javascript:void(0);">All Parents</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">                            
+                            <div id="user_statistics" class="ct-chart"></div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <!----- User Distribution Stats ----->
+  {% endif %} 			
+			
+  {% if page.accessorRole == 1 or page.accessorRole == 2 %} 
+           <!---- RECENT SCHOOLS ----->
+           <div class="row clearfix">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Recently Added Teachers</h2>
+                            <ul class="header-dropdown">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="javascript:void(0);">Manage Students</a></li>
+                                        <li><a href="javascript:void(0);">Manage Teachers</a></li>
+                                        <li><a href="javascript:void(0);">Manage Parents</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th style="width:60px;">#</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+											<th>Designation</th>
+                                            <th>Mobile</th>                                    
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>Suman Malhotra</td>
+                                            <td>Porterfield 508 Virginia Street Chicago, IL 60653</td>
+                                            <td>Hindi Teacher</td>
+											<td>9967908722</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>Mayank Kalle</td>
+                                            <td>Marathalli Road, Bangalore</td>
+                                            <td>Maths Teacher</td>
+											<td>8767908722</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+										<tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>Ruchi Sinha</td>
+                                            <td>Porterfield 508 Virginia Street Chicago, IL 60653</td>
+                                            <td>Social Science Teacher</td>
+											<td>8767908888</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+										<tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>Reena Thakur</td>
+                                            <td>Porterfield 508 Virginia Street Chicago, IL 60653</td>
+                                            <td>Senior Maths Teacher</td>
+											<td>9767908112</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+										<tr>
+                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
+                                            <td>Mahesh Sarkar</td>
+                                            <td>Porterfield 508 Virginia Street Chicago, IL 60653</td>
+                                            <td>Science Teacher</td>
+											<td>9988908722</td>
+                                            <td><span class="badge badge-success">Pending</span></td>
+                                            <td><button class="btn btn-sm round btn-outline-success"> View</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!---- END OF RECENT SCHOOLS ----->			
+  {% endif %}
+
+
+ <!---- START OF CENTER WIDGET FOOTER ----->
+ {% if page.accessorRole == 1 or page.accessorRole == 2 %}
+ <div class="row clearfix">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                  
+                   
+
+                {% include 'widgets/parent-today-widget.twig' %}
+                    {% include 'widgets/calendar_events.twig' %}
+                     {% include 'widgets/todo_list.twig' %}
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    {% include 'widgets/activities.twig' %}
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    {% include 'widgets/attendance_stats.twig' %}
+                </div>
+            </div>
+ {% endif %}
+
+
+  {% if page.accessorRole == 5 %}
+  <hr><h6>You have added 2 ward accounts. <a href="#">Add New Ward</a></h6><hr>
+ <div class="row clearfix">
+    <div class="col-lg-4 col-md-12 col-sm-12">
+                {% include 'widgets/parent-today-widget.twig' %}
+                    {% include 'widgets/front_calendar.twig' %}
+                </div>
+                 <div class="col-lg-4 col-md-12 col-sm-12">
+                    {% include 'widgets/notice-board.twig' %}
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    {% include 'widgets/quote-of-the-day.twig' %}
+                </div>
+            </div>
+ <div class="row clearfix">
+    <div class="col-lg-4 col-md-12 col-sm-12">
+                {% include 'widgets/monthly-attendance.twig' %}
+                </div>
+        <div class="col-lg-8 col-md-12 col-sm-12">
+                {% include 'widgets/subject-wise-skill-analysis.twig' %}
+                </div>
+  </div>
+
+ {% endif %}
+
+  <!---- END OF CENTER WIDGET FOOTER ----->
+        </div>
+    </div>
+{% endblock %}
+{% block footer_scripts %}
+<script src="{{ base_url() }}/assets/bundles/datatablescripts.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/tables/jquery-datatable.js"></script>
+<script src="{{ base_url() }}/assets/bundles/morrisscripts.bundle.js"></script><!-- Morris Plugin Js -->
+<script src="{{ base_url() }}/assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
+<script src="{{ base_url() }}/assets/bundles/chartist.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/superadmindashboard.js"></script>
+
+<script src="{{ base_url() }}/assets/bundles/fullcalendarscripts.bundle.js"></script>
+<script src="{{ base_url() }}/assets/js/pages/calendar.js"></script>
+
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

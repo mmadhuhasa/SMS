@@ -1,0 +1,41 @@
+<nav id="left-sidebar-nav" class="sidebar-nav">
+                        <ul id="main-menu" class="metismenu">   
+                        
+                        <li class="{% if page.name == "dashboard" %}active{% endif %}"><a href="{{ base_url() }}/dashboard">
+                                <i class="icon-speedometer"></i> Dashboard
+                            </a></li>
+                            
+                             <li {% if page.name == "school" %}class="active"{% endif %}><a href="#">
+                                <i class="icon-speedometer"></i> My School
+                            </a></li>
+                            
+                              <li {% if page.name == "assignments" %}class="active"{% endif %}><a href="#">
+                                <i class="icon-note"></i> Assignments
+                            </a></li>
+                           
+                           
+                            <li {% if page.name == "school-calendar" %}class="active"{% endif %}><a href="{{ base_url() }}/school-calendar"><i class="icon-check"></i> Calendar</a></li>
+                            
+                             <li {% if page.name == "econtents" %}class="active"{% endif %}><a href="{{ base_url() }}/posts">
+                                <i class="icon-bulb"></i> E-Contents
+                            </a></li>
+                            
+                             <li {% if page.name == "exams" %}class="active"{% endif %}><a href="#">
+                                <i class="icon-speedometer"></i> Exams
+                            </a></li>
+                            
+                            <li {% if page.name == "fees" %}class="active"{% endif %}><a href="#"><i class="icon-wallet"></i> Fees</a></li>
+                            
+                           
+                            <li {% if page.name == "timetable" %}class="active"{% endif %}><a href="{{ base_url() }}/time-table"><i class="icon-check"></i> Time Table</a></li>
+                            
+							<li {% if page.name == "transport" %}class="active"{% endif %}><a href="#"><i class="icon-shuffle"></i> Transport Management</a></li>
+
+								
+						 <li {% if page.name == "econtents" %}class="active"{% endif %}>
+                            <a href="#">
+                                <i class="icon-wrench"></i> Settings
+                            </a>
+                        </li>
+                        </ul>
+                    </nav>

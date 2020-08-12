@@ -1,0 +1,108 @@
+{% extends 'applayout.twig' %}
+{% block header_scripts %}
+<link rel="stylesheet" href="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.css"/>
+{% endblock %}
+{% block header %}
+{% endblock %}
+{% block appnav %}
+{% endblock %}
+{% block content %}
+<div class="vertical-align-wrap">
+			<div class="vertical-align-middle auth-main" style="background: url({{ base_url() }}/images/bg-home.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;height: 100%;">
+			<div class="col-lg-8 col-md-8 col-10 offset-lg-3 offset-md-3">
+				<div class="auth-box" style="width: 460px;">
+					<div class="card">
+					{% if page.data.status == 'Active' %}
+					<!---- Start of loader ---->
+                        <div class="body">										
+                         <div id="login_overlay">
+					<div style="margin: 68px; text-align: center;">
+					{% if session.user_image %}
+<img src="{{session.user_image}}" class="rounded-circle user-photo" alt="User Profile Picture">
+{% endif %}
+{% if session.first_name %}
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Welcome &nbsp;{{session.first_name}}</strong></h5>
+{% endif %}	
+					<hr style="width:200px;">
+					<img src="{{ base_url() }}/images/loading.gif" style="width:48px;margin:10px auto;display:block;"/>
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Authenticating...</strong></h5>
+					<p>Please wait...</p>
+					</div>					
+					</div>
+					
+                        </div>
+                    </div>
+					 <!---- End of loader ---->
+					 {% endif %}
+					 
+					 {% if page.data.status == 'Pending' %}
+					<!---- Start of loader ---->
+                        <div class="body">									
+                         <div id="login_overlay">
+					<div style="margin: 68px; text-align: center;">
+					{% if session.user_image %}
+<img src="{{session.user_image}}" class="rounded-circle user-photo" style="margin:10px;width:64px;height:64px;">
+{% endif %}
+{% if session.first_name %}
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Welcome {{session.first_name}}</strong></h5>
+{% endif %}					
+					<hr style="width:200px;">
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Looks like your account is not activated yet. <a href="{{base_url()}}/verify-account">Verify your account </a> to get started.</strong></h5>
+					
+					</div>					
+					</div>
+					
+                        </div>
+                    </div>
+					 <!---- End of loader ---->
+					 {% endif %}
+					 
+					 
+					 		 {% if page.data.status == 'Blocked' %}
+					<!---- Start of loader ---->
+                        <div class="body">									
+                         <div id="login_overlay">
+					<div style="margin: 68px; text-align: center;">
+					{% if session.user_image %}
+<img src="{{session.user_image}}" class="rounded-circle user-photo" style="margin:10px;width:64px;height:64px;">
+{% endif %}
+{% if session.first_name %}
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong> Hello {{session.first_name}} {{session.last_name}}</strong></h5>
+{% endif %}					
+					<hr style="width:200px;">
+					<h5 id="responseMsg" style="margin-bottom: 2px;"><strong>Looks like your account has been blocked. Please contact  <a href="{{base_url()}}/contact"> Support Team </a> to get your issue resolved.</strong></h5>
+					
+					</div>					
+					</div>
+					
+                        </div>
+                    </div>
+					 <!---- End of loader ---->
+					 {% endif %}
+					 
+					 
+				   </div>
+				</div>
+			</div>
+		</div>
+		</div>
+{% endblock %}
+{% block footer_scripts %}
+<script type="text/javascript">
+var redirect = '{{ page.redirect }}';
+$(document).ready(function() {
+if(redirect){
+  setTimeout(function(){
+  window.location.replace(base_url+redirect);
+  }, 4000);
+}
+    });
+</script>
+<script src="{{ base_url() }}/scripts/app.js"></script>
+<script src="{{ base_url() }}/scripts/front_script.js"></script>
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+{% endblock %}

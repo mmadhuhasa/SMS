@@ -239,13 +239,26 @@ break;
 		$app->get('/manage-teachers', function (Request $request, Response $response, $args){
 		require_once("dbmodels/user.crud.php");
         $userCRUD = new UserCRUD(getConnection());
-		$schools = $userCRUD->getAllUsers(2, 1);
+		// $schools = $userCRUD->getAllUsers(2, 1);
+		$teachers = array();
+		$role_id = 4;
+		$school_id = 1;
+		$dataArr = $userCRUD->getAllUsers($role_id, $school_id);
+	    if (count($dataArr) > 0) {
+			   foreach ($dataArr as $row) {
+			   $tmp = array();
+			   $tmp = getTeacherDetails($row["id"]);
+			   //$tmp = getUserFullProfile($row["id"]);
+			   array_push($teachers, $tmp);
+			   }
+	    }
+
 		$vars = [
 			'page' => [
 			'name' => '',
 			'title' => 'Manage Teachers | Talank SMS',
 			'description' => '',
-			'schools' => $schools
+			'teachers' => $teachers
 			]
 		];
 		return $this->view->render($response, 'list-teachers.twig', $vars);
@@ -420,11 +433,13 @@ break;
 	
 function getConnection() {
 $host = 'localhost';
-$db   = 'talankdb';
+// $db   = 'schoolautomationdb';
+$port = '3306';
+$db   = 'schoolasdb';
 $user = 'talankdb';
 $pass = 'talankdb';
 $charset = 'utf8';
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
 $opt = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -528,9 +543,9 @@ function getCallerSnapshot($request, $respo) {
 	$api_key = "";
 	if(empty($authArr)){
 		$response["error"] = true;
-            $response["message"] = "APITester => Authorization token not found with request.";
-            echoRespnse(401, $response);
-			$request = $request->withAttribute('error', true);
+            $response["message"] = "Authorization token not found with request.";
+            //echoRespnse(401, $response);
+			//$request = $request->withAttribute('error', true);
             return $response;
 	}else{
 		$api_key = $authArr[0];
@@ -540,20 +555,22 @@ function getCallerSnapshot($request, $respo) {
 		$response["caller_role_name"] = $userCRUD->getRoleName($response["caller_role"]);
 		$userRow = $userCRUD->getUserByAPIKey($api_key);
 		if($userRow !== null){
-		$response["id"] = $userRow["id"];
-		$response["school_id"] = $userRow["school_id"];
+		$response["caller_id"] = $userRow["id"];
+		$response["caller_school_id"] = $userRow["school_id"];
 		}
 	}
 	return $response;
 }
 
 
-/******** DELETE USER *********/
+/******** API TESTER *********/
 	$app->post('/apitester', function ($request, $respo, $args) use ($app) {
     require_once("dbmodels/user.crud.php");
 	$userCRUD = new UserCRUD(getConnection());
 	require_once("dbmodels/school.crud.php");
 	$schoolCRUD = new SchoolCRUD(getConnection());
+	require_once("dbmodels/post.crud.php");
+	$postCRUD = new PostCRUD(getConnection());
 	$response = array();
     $response["error"] = true;
 	$id = $request->getParam('id');
@@ -586,7 +603,7 @@ function getCallerSnapshot($request, $respo) {
         
         //Get the user ID
         $user_id = 1;
-        
+        /*
         $user_permissions = array();
 		$modules = $moduleCRUD->getAllAppModules();	
 		if (count($modules) > 0) {
@@ -614,19 +631,20 @@ function getCallerSnapshot($request, $respo) {
 	    array_push($user_permissions, $tmp);
 		}
 	    }
+	  */
 	  
-	  
-	 $timetable = getTimetable(1, 4);
+	 //$timetable = getTimetable(1, 4);
 	  
 	$res = $userCRUD->getUsage($api_key);	
     $snap = getCallerSnapshot($request, $respo);
 	if (true) {
         $response["error"] = false;
 		$response["result"] = "Usage/Api Hits: ".$res;
-		$response["school_name"] = "School: ".$schoolCRUD->getNameByID($schoolID);
-		$response["snapshot"] = $snap;
+		//$response["post"] = getPostDetails(313, 1, false, true, true);
+		//$response["posts"] = $postCRUD->getAllPosts();
 		//$response["user_permissions"] = $user_permissions;
-		$response["timetable"] = $timetable;
+		//$response["timetable"] = $timetable;
+		$response["student"] = getStudentDetails(4, false);
         $response["message"] = "This is cool debug place. ";
 		$response["id"] = $id;
 	    echoRespnse(200, $response);

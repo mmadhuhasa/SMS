@@ -13,9 +13,9 @@
 		$periodCRUD = new PeriodCRUD(getConnection());
 		require_once("dbmodels/timetable.crud.php");
         $timetableCRUD = new TimetableCRUD(getConnection());
-		
+		 
 		require_once("dbmodels/school.crud.php");
-        $schoolCRUD = new SchoolCRUD(getConnection());
+        $schoolCRUD = new SchoolCRUD(getConnection()); 
 		
 		$schoolID = 1;
 		$class = 4;

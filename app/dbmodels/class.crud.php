@@ -93,7 +93,7 @@ class ClassCRUD
  }
  
  
-    public function isIDExists($id)
+  public function isIDExists($id)
  {
   $stmt = $this->db->prepare("SELECT id FROM classes WHERE id=:id");
   $result = $stmt->execute(array(":id"=>$id));

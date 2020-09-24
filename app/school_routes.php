@@ -183,7 +183,7 @@
     try{
     $newCoverfile = $files['logo'];
     $cover_file_type = "Unknown";
-	$response["message"] .= " Got logo.";
+	$response["message"] = " Got logo.";
 	if ($newCoverfile->getError() === UPLOAD_ERR_OK) {
     $uploadCoverName = $newCoverfile->getClientFilename();
 	$uploadCoverName = explode(".", $uploadCoverName);

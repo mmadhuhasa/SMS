@@ -157,5 +157,17 @@ class TopicCRUD
 			}
    return $response; 
  }
+
+    public function getAllTopicsForclass($subject_id)
+  {
+    // print_r($class_id);die();
+    $stmt = $this->db->prepare("SELECT id, title FROM topics WHERE subject_id=:subject_id");
+    $stmt->execute(array(":subject_id"=>$subject_id));
+    $result = $stmt->fetchAll(); 
+    return $result;
+
+  }
+
+  
  
 }

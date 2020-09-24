@@ -10,7 +10,7 @@ class StudentCRUD
   $this->db = $DB_con;
  }
  
-    public function isUserProfileRegistered($user_id)
+   public function isUserProfileRegistered($user_id)
  {
   $stmt = $this->db->prepare("SELECT id FROM student_details WHERE user_id=:user_id");
   $result = $stmt->execute(array(":user_id"=>$user_id));

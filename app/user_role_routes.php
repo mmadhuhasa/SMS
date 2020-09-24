@@ -13,7 +13,7 @@
     $response["error"] = true;
 	$response["message"] = "";
 	$name = $request->getParam('name');
-	$description = $request->getParam('description');
+	$description = $request->getParam('description'); 
 	
 	if(empty($name)){
 		 $response["error"] = true;

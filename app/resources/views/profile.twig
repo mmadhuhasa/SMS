@@ -58,21 +58,6 @@
                         </div>                    
                     </div>          
                     
-                      <div class="card">
-                        <div class="header">
-                            <h2>Usage Details</h2>
-                        </div>
-                        <div class="body">                            
-                            <div class="workingtime">   
-                                {% if page.user.last_seen %}							
-								<p>Last Seen : {{page.user.last_seen}}</p>{% endif %}
-                                {% if page.user.ip_address %}<hr>
-								 <p>IP Address : {{page.user.ip_address}}</p>{% endif %}
-								  <hr>
-								 {% if page.user.usage %}<p>Usage : {{page.user.usage}}</p>{% endif %}
-                            </div>
-                        </div>
-                    </div>
                     
                     {% if page.user.role_id == 3 %}	
                     <div class="card">
@@ -99,7 +84,25 @@
                         </div>
                     </div>
                     {% endif %}
+
+
+                  <div class="card">
+                        <div class="header">
+                            <h2>Usage Details</h2>
+                        </div>
+                        <div class="body">                            
+                            <div class="workingtime">   
+                                {% if page.user.last_seen %}							
+								<p>Last Seen : {{page.user.last_seen}}</p>{% endif %}
+                                {% if page.user.ip_address %}<hr>
+								 <p>IP Address : {{page.user.ip_address}}</p>{% endif %}
+								  <hr>
+								 {% if page.user.usage %}<p>Usage : {{page.user.usage}}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
                     
+                        
                     {% if page.user.role_id == 3 %}	
                     <div class="card">
                         <div class="header">

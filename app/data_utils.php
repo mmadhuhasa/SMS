@@ -104,37 +104,41 @@ function getStudentDetails($user_id, $thumbnail = false) {
 	$row = $userCRUD->getID($user_id);
 	$tmp = array();
 	if($row != null){
-				//DETAILS
-				$tmp["guardian"] = "Available";
-				
-				 $studentDetails = $studentCRUD->getByUserID($user_id);
-				 if($studentDetails !== null){
-					 $tmp["roll_no"] = $studentDetails["roll_no"];
-					 //$tmp["class"] = $studentDetails["class"];
-					 $tmp["class_name"] = $classCRUD->getNameByID($studentDetails["class"]);
-					 $tmp["section"] = $studentDetails["section"];
-					 $tmp["section_name"] = $sectionCRUD->getNameByID($studentDetails["section"]);
-					 if(!$thumbnail){
+	        $tmp["first_name"] = $row["first_name"];
+			$tmp["last_name"] = $row["last_name"];
+			$tmp["user_name"] = $row["user_name"];
+
+			//DETAILS
+			$tmp["guardian"] = "Available";
+			$studentDetails = $studentCRUD->getByUserID($user_id);
+			if($studentDetails != null){
+				 $tmp["roll_no"] = $studentDetails["roll_no"];
+				 //$tmp["class"] = $studentDetails["class"];
+				 $tmp["class_name"] = $classCRUD->getNameByID($studentDetails["class"]);
+				 $tmp["section"] = $studentDetails["section"];
+				 $tmp["section_name"] = $sectionCRUD->getNameByID($studentDetails["section"]);
+				 if(!$thumbnail){
 					 $tmp["admission_no"] = $studentDetails["admission_no"];	 
 					 $tmp["religion"] = $studentDetails["religion"];
 					 $tmp["caste"] = $studentDetails["caste"];
 					 $tmp["blood_group"] = $studentDetails["blood_group"];
 					 $tmp["admission_date"] = $studentDetails["admission_date"];
 					 if(!empty($tmp["admission_date"])){
-					try{
-					$tmp["admission_date"] = $utilCRUD->getFormattedDate($tmp["admission_date"]);
-				}catch(Exception $e){
-					$tmp["admission_date"] = $studentDetails["admission_date"];
-				}
-				$tmp["parents"] = $relationshipsCRUD->getParentsFor($user_id);
-				$tmp["numAllParents"] = count($tmp["parents"]);
-				$tmp["numGuardians"] = $relationshipsCRUD->numMainGuardian($user_id);
-				$tmp["numOtherParents"] = $tmp["numAllParents"] - $tmp["numGuardians"];
-				if($tmp["numGuardians"] <= 0){
-					$tmp["guardian"] = "No Guardian Added";
-				}
-					 }
-				 }
+						try{
+							$tmp["admission_date"] = $utilCRUD->getFormattedDate($tmp["admission_date"]);
+						}catch(Exception $e){
+							$tmp["admission_date"] = $studentDetails["admission_date"];
+						}
+
+						$tmp["parents"] = $relationshipsCRUD->getParentsFor($user_id);
+						$tmp["numAllParents"] = count($tmp["parents"]);
+						$tmp["numGuardians"] = $relationshipsCRUD->numMainGuardian($user_id);
+						$tmp["numOtherParents"] = $tmp["numAllParents"] - $tmp["numGuardians"];
+						if($tmp["numGuardians"] <= 0){
+							$tmp["guardian"] = "No Guardian Added";
+						}
+				 	}
+			 	}
 			}
 			return $tmp;
 	}
@@ -150,20 +154,31 @@ function getTeacherDetails($user_id, $thumbnail = false) {
     $utilCRUD = new UtilCRUD(getConnection());
 	require_once("dbmodels/school.crud.php");
 	$schoolCRUD = new SchoolCRUD(getConnection());
-	
 	require_once("dbmodels/teacher.crud.php");
 	$teacherCRUD = new TeacherCRUD(getConnection());
 	$tmp = array();
 	$row = $userCRUD->getID($user_id);
 	if($row != null){
+				$tmp["name"] = $row["first_name"];
+				$tmp["school_id"] = $row["school_id"];
+				$tmp["mobile"] = $row["mobile"];
+				$tmp["date_created"] = $row["date_created"];
+
 				//DETAILS
 				$teacherDetails = $teacherCRUD->getByUserID($user_id);
-				if($teacherDetails !== null){
+				if($teacherDetails != null){
 					 $tmp["designation"] = "Sir ".$teacherDetails["designation"];
 					 $tmp["joining_date"] = 0;
 					 $tmp["is_class_teacher"] = 0;
 					 $tmp["class_incharge"] = 0;
 					 if(!$thumbnail){
+
+
+
+
+
+
+
 					 }
 				}
 			}
@@ -437,7 +452,7 @@ function getParentDetails($user_id, $thumbnail = false) {
 	
 /*************** GET SCHOOL DETAILS ******************/	
 
-	function getSchoolDetails($res, $thumbnail = true) {
+	function getSchoolDetails($res, $thumbnail = true, $fullDetails = false) {
     require_once("dbmodels/school.crud.php");
 	$schoolCRUD = new SchoolCRUD(getConnection());
 	require_once("dbmodels/user.crud.php");
@@ -449,7 +464,6 @@ function getParentDetails($user_id, $thumbnail = false) {
 		$companyProfile["id"] = $res["id"];
 		$companyProfile["name"] = $res["name"];
 		$companyProfile["tagline"] = $res["tagline"];
-		//$companyProfile["user_id"] = $res["user_id"];
 		$companyProfile["address"] = $res["address"];
 		$companyProfile["city"] = $res["city"];
 		$companyProfile["country"] = $res["country"];
@@ -460,7 +474,14 @@ function getParentDetails($user_id, $thumbnail = false) {
 	    $companyProfile["logo"] = $res["logo"];
 		$companyProfile["website"] = $res["website"];
 		$companyProfile["status"] = $res["status"];
+		$companyProfile["date_created"] = $res["date_created"];
+		try{
+			$companyProfile["date_created"] = $utilCRUD->getFormattedDate($res["date_created"]);
+		}catch(Exception $e){
+			$companyProfile["date_created"] = $res["date_created"];
+		}
 		
+		$companyProfile["connections"] = $userCRUD->getUsageBySchool($res["id"]);
 		$companyProfile["numAdmins"] = $userCRUD->getNumSchoolAdmins($res["id"]);
 		$schoolAdmin = $userCRUD->getFirstSchoolAdmin($res["id"]);
 		$companyProfile["admin"] = $schoolAdmin;
@@ -468,24 +489,17 @@ function getParentDetails($user_id, $thumbnail = false) {
 		$companyProfile["admin"]["id"] = "";
 		$companyProfile["admin"]["first_name"] = "";
 		$companyProfile["admin"]["last_name"] = "";
+		/*
 		$tmpSchoolAdmin = array();
 		if(null !== $schoolAdmin && null !== $schoolAdmin["id"]){
 		$tmpSchoolAdmin["owner_id"] = $res["id"];
 		$tmpSchoolAdmin["owner_name"] = $userCRUD->getNameByID($schoolAdmin["id"]);
 		$tmpSchoolAdmin["owner_username"] = $userCRUD->getUserName($schoolAdmin["id"]);
-		}
+		} */
 		
-		$companyProfile["users"] = $userCRUD->getNumAllUsersIn($res["id"]);
-		$companyProfile["connections"] = $userCRUD->getUsageBySchool($res["id"]);
-		
-		$companyProfile["date_created"] = $res["date_created"];
-		try{
-			$companyProfile["date_created"] = $utilCRUD->getFormattedDate($res["date_created"]);
-		}catch(Exception $e){
-			$companyProfile["date_created"] = $res["date_created"];
+		if($fullDetails){
+			$companyProfile["users"] = $userCRUD->getNumAllUsersIn($res["id"]);
 		}
-        //$companyProfile["jobAreas"] = $companyCRUD->getJobAreas($res["id"]);
-		//$companyProfile["numJobs"] = $jobCRUD->getNumAllJobsForCompany($res["id"]);
 	    return $companyProfile;
 	  }
 	  return NULL;
@@ -593,5 +607,166 @@ function getParentDetails($user_id, $thumbnail = false) {
 	           return $data;
 	}
 	
+    /**************** REVIEW CODE BELOW ******************/
 
-	?>
+	
+ 	
+    /*************** GET POST DETAILS ******************/
+	function getPostDetails($id, $userID, $thumbnail = true, $displayStats = true, $listDetails = false) {
+	require_once("dbmodels/user.crud.php");
+	$userCRUD = new UserCRUD(getConnection());
+	require_once("dbmodels/utils.crud.php");
+	$utilCRUD = new UtilCRUD(getConnection());
+	require_once("dbmodels/class.crud.php");
+	$classCRUD = new ClassCRUD(getConnection());
+	require_once("dbmodels/subject.crud.php");
+	$subjectCRUD = new SubjectCRUD(getConnection());
+	require_once("dbmodels/topic.crud.php");
+	$topicCRUD = new TopicCRUD(getConnection());
+	require_once("dbmodels/post.crud.php");
+    $postCRUD = new PostCRUD(getConnection());
+    //require_once("dbmodels/post_type.crud.php");
+    //$postTypeCRUD = new PostTypeCRUD(getConnection());
+	require_once("dbmodels/post_tag.crud.php");
+    $postTagCRUD = new PostTagCRUD(getConnection());
+    require_once("dbmodels/post_preferences.crud.php");
+    $postPreferenceCRUD = new PostPreferenceCRUD(getConnection());
+    require_once("dbmodels/post_image.crud.php");
+    $postImageCRUD = new PostImageCRUD(getConnection());
+	require_once("dbmodels/post_like.crud.php");
+	$postLikeCRUD = new PostLikeCRUD(getConnection());
+	require_once("dbmodels/post_comment.crud.php");
+	$postCommentCRUD = new PostCommentCRUD(getConnection());
+	require_once("dbmodels/post_view.crud.php");
+	$postViewCRUD = new PostViewCRUD(getConnection());
+    $res = $postCRUD->getID($id);
+	if($res != null){
+		$postFullDetails = array();
+		$postFullDetails["id"] = $res["id"];
+		$postFullDetails["title"] = $res["title"];
+		$postFullDetails["post_type"] = $res["post_type"];
+		$postFullDetails["author_id"] = $res["author_id"];
+		$postFullDetails["class_id"] = $res["class_id"];
+		$postFullDetails["subject_id"] = $res["subject_id"];
+		$postFullDetails["topic_id"] = $res["topic_id"];
+	    $postFullDetails["status"] = $res["status"];
+	    $postFullDetails["qcode"] = $res["qcode"];
+		$postFullDetails["description"] = $res["description"];
+		$postFullDetails["body"] = $res["body"];
+	    $postFullDetails["date_created"] = $res["date_created"];
+		$postFullDetails["link"] = $res["link"];
+		//$postFullDetails["timestamp"] = $res["timestamp"];
+		
+		if(!empty($postFullDetails["date_created"])){
+    		try{
+    			$postFullDetails["date_created"] = $utilCRUD->getFormattedDate($res["date_created"]);
+    		}catch(Exception $e){
+    			$postFullDetails["date_created"] = $res["date_created"];
+    		}
+    	}
+		
+		//Post Details 
+		$postFullDetails["class_name"] = $classCRUD->getNameByID($res["class_id"]);
+		$postFullDetails["subject_name"] = $subjectCRUD->getNameByID($res["subject_id"]);
+		$postFullDetails["topic_name"] = $topicCRUD->getNameByID($res["topic_id"]);
+		$postFullDetails["author_name"] = $userCRUD->getNameByID($res["author_id"]);
+		$postFullDetails["author_role"] = $userCRUD->getRoleNameFromUsers($res["author_id"]);
+		$postFullDetails["author_image"] = $userCRUD->getImageByID($res["author_id"]);
+		$postFullDetails["author_school"] = $userCRUD->getSchoolName($res["author_id"]);
+		
+		$postFullDetails["tags"] = array();
+		if($postTagCRUD->getNumTags($id) > 0){
+			$postFullDetails["tags"] = $postTagCRUD->getTagsForPost($id);
+		}
+		$postFullDetails["prefs"] = array();
+		if($postPreferenceCRUD->isPrefsAvailable($id) > 0){
+			$postFullDetails["prefs"] = $postPreferenceCRUD->getPrefsFor($id);
+		}
+		$postFullDetails["images"] = array();
+		if($postImageCRUD->isImageAvailable($id) > 0){
+			$postFullDetails["images"] = $postImageCRUD->getImages($id);
+		}
+
+		//Personal Data
+		$postFullDetails["isLiked"] = false;
+		if(!empty($userID)){
+			$postFullDetails["isLiked"] = $postLikeCRUD->isLikedBy($userID, $id);
+		}
+		
+		//Post Statistics
+		if($displayStats){
+			$postFullDetails["numViews"] = $postViewCRUD->getPostViewCount($id);
+			$postFullDetails["numUniqueViews"] = $postViewCRUD->getPostViewCountUnique($id);
+			$postFullDetails["numLikes"] = $postLikeCRUD->getNumLikes($id);
+			$postFullDetails["numComments"] = $postCommentCRUD->getNumCommentsFor($id);
+		}
+
+		//Post Attributes List
+		if($listDetails){
+			$postFullDetails["comments"] = array();
+			$postComments = $postCommentCRUD->getCommentsFor($id);
+			// get comments
+			if (count($postComments) > 0) {
+			   foreach ($postComments as $thisComment) {
+				   $tmp = getPostCommentItem($thisComment["id"]);
+				   array_push($postFullDetails["comments"], $tmp);
+			   }
+	        }
+
+			// $user_info = array();	
+			// foreach ($postFullDetails["comments"] as $key => $value) {
+			// 	$user_info = $userCRUD->getUserImage($value['user_id']);
+			// 	array_push( $postFullDetails["comments"][$key], array_reduce($user_info, 'array_merge', array()) );
+			// }
+			// print_r($postFullDetails["comments"]);die();
+
+			// get recent posts
+			$postFullDetails["recent_posts"] = array();
+			$postFullDetails["recent_posts"] = $postCRUD->getRecentPosts();
+	
+
+			// get latest posts
+			$postFullDetails["latest_images"] = array();
+			$postFullDetails["latest_images"] = $postCRUD->getLatestImages();	// $postImageCRUD->getLatestImages();
+
+		}
+
+	    return $postFullDetails;
+	  }
+	  return NULL;
+	}
+
+
+
+	/********** Get Post Comment Detail *********/
+	function getPostCommentItem($item_id) {
+	    require_once("dbmodels/utils.crud.php");
+		require_once("dbmodels/user.crud.php");
+		require_once("dbmodels/post_comment.crud.php");
+		$postCommentCRUD = new PostCommentCRUD(getConnection());
+	    $utilCRUD = new UtilCRUD(getConnection());
+		$userCRUD = new UserCRUD(getConnection());
+		$row = $postCommentCRUD->getID($item_id);
+		if($row != null){
+			$tmp = array();
+	        $tmp["id"] = $row["id"];
+			$tmp["user_id"] = $row["user_id"];
+			$tmp["post_id"] = $row["post_id"];
+			$tmp["comment"] = $row["comment"];
+			$tmp["name"] = $userCRUD->getNameByID($row["user_id"]);
+			$tmp["user_image"] = $userCRUD->getImageByID($row["user_id"]);		
+	        $tmp["timestamp"] = $row["timestamp"];
+			try{
+				if(!empty($row["timestamp"])){	 
+					$tmp["timestamp"] = $utilCRUD->getFormattedDate($row["timestamp"]);
+				}
+			}catch(Exception $e){
+					//
+			}
+		    return $tmp;
+		}
+		return NULL;
+	}
+
+
+?>

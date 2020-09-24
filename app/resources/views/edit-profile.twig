@@ -48,7 +48,7 @@
 					</div>					
 					</div>
 	
-	 <form class="form-auth-small" name="addUserImageForm" id="addUserImageForm" action="{{ base_url() }}/apis/users/uploadPhoto" method="POST" enctype="multipart/form-data">
+	 <form class="form-auth-small" name="addUserImageForm" id="addUserImageForm" action="{{ base_url() }}/apis/users/uploadPhoto" method="POST" enctype="multipart/form-data" data-url="{{ base_url() }}">
 	     <input type="hidden" name="user_id" value="{page.user.id}}" required/>
 	 {% if page.user.user_image %}
 	 <input type="file" name="user_image" class="dropify" data-allowed-file-extensions="jpg png" data-default-file="{{page.user.user_image}}" >
@@ -88,7 +88,7 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 <i class="fa fa-warning"></i> <span id="errorMsg">Fill up the form to update personal details.</span>
                             </div>
-                                     <form class="form-auth-small" name="updateUserForm" id="updateUserForm" action="{{ base_url() }}/apis/users/update" method="POST">
+                                     <form class="form-auth-small" name="updateUserForm" id="updateUserForm" action="{{ base_url() }}/apis/users/update" method="POST" data-url="{{ base_url() }}">
                                     <input type="hidden" name="user_id" class="form-control" value="{{page.user.id}}">
 									<input type="hidden" name="role_id" class="form-control" value="{{page.user.role_id}}">
 									<input type="hidden" name="school_id" class="form-control" value="{{page.user.school_id}}">
@@ -228,7 +228,7 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 <i class="fa fa-warning"></i> <span id="studentErrorMsg">Fill up the form to update academic profile.</span>
                             </div>
-								 <form class="form-auth-small" name="updateStudentForm" id="updateStudentForm" action="{{ base_url() }}/apis/students/update" method="POST">
+								 <form class="form-auth-small" name="updateStudentForm" id="updateStudentForm" action="{{ base_url() }}/apis/students/update" method="POST" data-url="{{ base_url() }}">
                                      <input name="user_id" type="hidden" class="form-control" value="{{page.user.id}}" required>
                                   
 							 <div class="row">
@@ -332,7 +332,7 @@
 								
 								
 					<div class="tab-pane" id="Account">
-                                     <form class="form-auth-small" name="updatePassForm" id="updatePassForm" action="{{ base_url() }}/apis/auth/creds/update" method="POST">
+                                     <form class="form-auth-small" name="updatePassForm" id="updatePassForm" action="{{ base_url() }}/apis/auth/creds/update" method="POST" data-url="{{ base_url() }}">
                                    <div class="alert alert-warning alert-dismissible" role="alert" id="accountErrorMsgBlock" style="display:none;">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 <i class="fa fa-warning"></i> <span id="accountErrorMsg">Fill up the form to update password.</span>

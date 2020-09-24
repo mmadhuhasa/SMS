@@ -243,6 +243,14 @@ class UserCRUD
   return $rows;
  }
  
+  public function getRoleNameFromUsers($id)
+ {
+  $stmt = $this->db->prepare("SELECT name FROM user_roles WHERE id =(SELECT role_id FROM users WHERE id = :id) ");
+  $stmt->execute(array(":id"=>$id));
+  $rows = $stmt->fetchColumn(); 
+  return $rows;
+ }
+
  public function getUserName($id)
  {
   $stmt = $this->db->prepare("SELECT user_name FROM users WHERE id = :id");
@@ -267,7 +275,14 @@ class UserCRUD
   return $rows;
  }
  
- 
+   public function getSchoolName($id)
+ {
+  $stmt = $this->db->prepare("SELECT name FROM schools WHERE id = (SELECT school_id FROM users WHERE id = :id) ");
+  $stmt->execute(array(":id"=>$id));
+  $rows = $stmt->fetchColumn(); 
+  return $rows;
+ }
+
  /************ USER STATS FUNCTIONS ************
   public function getCountriesUsersSummary()
  {
@@ -805,5 +820,14 @@ class UserCRUD
 	   return $counts;
   }
  }
+
+   public function getUserImage($id)
+ {
+  $stmt = $this->db->prepare("SELECT CONCAT(`first_name`, ' ', `last_name`) as name, user_image FROM users WHERE id=:id");
+  $result = $stmt->execute(array(":id"=>$id));
+  $editRow=$stmt->fetchAll();
+  return $editRow;
+ }
+
  
 }

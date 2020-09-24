@@ -155,5 +155,17 @@ class SubjectCRUD
 			}
    return $response; 
  }
+
+   public function getAllSubjectsForclass($class_id)
+  {
+    // print_r($class_id);die();
+    $stmt = $this->db->prepare("SELECT id, title FROM subjects WHERE class_id=:class_id");
+    $stmt->execute(array(":class_id"=>$class_id));
+    $result = $stmt->fetchAll(); 
+    return $result;
+
+  }
+
+  
  
 }

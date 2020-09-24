@@ -49,7 +49,7 @@
 					</div>					
 					</div>
 					
-                            <form name="addTimetableEntryForm" id="addTimetableEntryForm" method="post" method="post" action="{{ base_url() }}/apis/timetable/create" novalidate>
+                            <form name="addTimetableEntryForm" id="addTimetableEntryForm" method="post" method="post" action="{{ base_url() }}/apis/timetable/create" novalidate data-url="{{ base_url() }}">
 							<div class="alert alert-warning alert-dismissible" role="alert" id="errorMsgBlock" style="display:none;">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 <i class="fa fa-warning"></i> <span id="errorMsg">Fill up the form to add a timetable entry.</span>
@@ -156,7 +156,7 @@
                 </div>
                 
                 
-			<input name="school_id" type='hidden' class="form-control" value='{{session.school_id}}' />
+			<input name="school_id" id="school_id" type='hidden' class="form-control" value='{{session.school_id}}' />
 			<input name="title" type='hidden' class="form-control" value='' />
 				
 				
@@ -175,19 +175,20 @@
     </div>
 {% endblock %}
 {% block footer_scripts %}
+<script src="{{ base_url() }}/scripts/app.js"></script>
 <script src="{{ base_url() }}/vendor/select2/select2.min.js"></script>    
 <script src="{{ base_url() }}/vendor/sweetalert/sweetalert.min.js"></script>
 <script src="{{ base_url() }}/assets/bundles/mainscripts.bundle.js"></script>
 <script src="{{ base_url() }}/vendor/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
 <script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
-<script>
+<!-- <script>
 //$('.select2').select2();
 </script> 
 <script src="{{ base_url() }}/vendor/dropify/js/dropify.min.js"></script>
 <script src="{{ base_url() }}/assets/js/pages/forms/dropify.js"></script>
 <script type="text/javascript">
-var base_url = "https://localhost/SMARTSCHOOLAUTOMATION";
+//var base_url = "https://localhost/SMARTSCHOOLAUTOMATION";
 $(document).ready(function() {
 //alert("Hello "+authorization);
 $('#addTimetableEntryForm').submit(function (e) {
@@ -233,5 +234,10 @@ location = base_url+"/time-table";
 });
 
 });
-</script>
+</script> -->
+
+
+<script src="{{ base_url() }}/scripts/create_timetable.js"></script>
+
+
 {% endblock %}

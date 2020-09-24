@@ -97,7 +97,7 @@ var redirect = '{{ page.redirect }}';
 $(document).ready(function() {
 if(redirect){
   setTimeout(function(){
-  window.location.replace(base_url+redirect);
+  window.location.replace(base_url+"/"+redirect);
   }, 4000);
 }
     });

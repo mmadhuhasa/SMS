@@ -63,7 +63,7 @@ require __DIR__ . '/../app/section_routes.php';
 require __DIR__ . '/../app/user_role_routes.php';
 require __DIR__ . '/../app/topic_routes.php';
 require __DIR__ . '/../app/posts_router.php';
-
+require __DIR__ . '/../app/posts_view_routes.php';
 
 function email_validation($str) {
     return (!preg_match( 

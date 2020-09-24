@@ -25,7 +25,7 @@
                         </ul>
                     </div>
                     <div class="col-lg-7 col-md-4 col-sm-12 text-right">
-                        <a href="{{ base_url() }}/create-post"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> <span>Add New E-Content</span></button></a>
+                        <a href="{{ base_url() }}/create-post"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> <span>Add New Post</span></button></a>
                     </div>
                 </div>
             </div>
@@ -36,15 +36,16 @@
                     <div class="card">
                        <div class="body">
 						<div class="table-responsive">
+
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
                                         <th>Title</th>
                                         <th>Author</th>
-										<th>Views</th>
-                                        <th>Likes</th>
-                                        <th>Comments</th>
-                                       {% if page.adminMode %} <th>School</th> {% endif %}
+										<th><i class="icon-eye text-success"></i> Views</th>
+                                        <th><i class="icon-like text-success"></i> Likes</th>
+                                        <th><i class="icon-bubble text-info"></i> Comments</th>
+                                         <th>Post Date</th>
                                          <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -52,37 +53,36 @@
                                     <tr>
                                       <th>Title</th>
                                         <th>Author</th>
-										<th>Views</th>
-                                        <th>Likes</th>
-                                        <th>Comments</th>
-                                       {% if page.adminMode %} <th>School</th> {% endif %}
-										 {% if page.adminMode %} <th>School</th> {% endif %}
+										<th><i class="icon-eye text-success"></i> Views</th>
+                                        <th><i class="icon-like text-success"></i> Likes</th>
+                                        <th><i class="icon-bubble text-info"></i> Comments</th>
+										 <th>Post Date</th>
                                          <th>Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-{% if page.data %}
-{% for row in page.data %}
-                                    <tr>
-                         
+                    {% if page.data %}
+                    {% for row in page.data %}
+                                    <tr>                        
                                         <td>{{row.title}}</td>
-										<td>{{row.subject_name}}</td>
-                                        <td>{{row.class_name}}</td>
-                                        <td>{{row.description}}</td>
-									
-                                         {% if page.adminMode %} 
-										  <td><a href="{{ base_url() }}/view-school/{{row.schoolCode}}">{{row.school_name}}</a></td>
-										  {% endif %}
+										<td>{{row.author_name}}</td>
+										<td>{{row.numViews}}</td>
+										<td>
+										{{row.numLikes}}</td>
+                                        <td>{{row.numComments}}</td>
+									    <td>{{row.date_created}}</td>                                   
 										
                                          <td class="actions">
-                                            <a href="{{ base_url() }}/edit-topic/{{row.id}}" class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
-                                            data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
-                                            <a data-id="{{row.id}}" class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
-                                            data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
+										  <a href="{{ base_url() }}/post-detail/{{row.qcode}}" class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="View Post"><i class="icon-eye" aria-hidden="true"></i></a>
+											
+                                            <a href="{{ base_url() }}/edit-post/{{row.qcode}}" class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
+                                            data-toggle="tooltip" data-original-title="Edit Post"><i class="icon-pencil" aria-hidden="true"></i></a>
+                                            <a data-id="{{row.qcode}}" dd="{{ base_url() }}/" class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove" data-toggle="tooltip" data-original-title="Delete Post"><i class="icon-trash" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
-{% endfor %}
-{% endif %}
+                    {% endfor %}
+                    {% endif %}
                                 </tbody>
                             </table>
 							</div>
@@ -95,13 +95,13 @@
 {% endblock %}
 {% block footer_scripts %}
 <script src="{{ base_url() }}/scripts/app.js"></script>
-<script src="{{ base_url() }}/scripts/list_topics.js"></script>
+<script src="{{ base_url() }}/scripts/list_posts.js"></script>
 <script src="{{ base_url() }}/assets/bundles/datatablescripts.bundle.js"></script>
 <script src="{{ base_url() }}/vendor/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
 <script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
 <script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.colVis.min.js"></script>
 <script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.html5.min.js"></script>
 <script src="{{ base_url() }}/vendor/jquery-datatable/buttons/buttons.print.min.js"></script>
-<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
+<script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
 <script src="{{ base_url() }}/assets/js/pages/tables/jquery-datatable.js"></script>
 {% endblock %}

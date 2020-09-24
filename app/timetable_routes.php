@@ -7,10 +7,10 @@
     require_once("dbmodels/user.crud.php");
 	$userCRUD = new UserCRUD(getConnection());
 	require_once("dbmodels/school.crud.php");
-	$schoolCRUD = new SchoolCRUD(getConnection());
+	$schoolCRUD = new SchoolCRUD(getConnection()); 
 	$response = array();
     $response["error"] = true;
-	$school_id = $request->getParam('school_id');
+	$school_id = $request->getParam('school_id'); 
 	$class_id = $request->getParam('class_id');
 	$headers = $request->getHeaders();
     $authArr = $request->getHeader("Authorization");

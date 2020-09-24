@@ -1,2 +1,2 @@
-/****** Integrity Solutions Consultant Website 
+/****** Smart School Automation 
 Visit : www.digitechgeek.com for support. ********/

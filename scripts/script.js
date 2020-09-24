@@ -1,4 +1,4 @@
-const base_url = "https://smartschoolautomation.com/";
+// const base_url = "https://smartschoolautomation.com/";
 $(document).ready(function() {
 /*
 var editor = CKEDITOR.replace('body', {

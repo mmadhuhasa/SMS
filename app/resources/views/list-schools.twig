@@ -74,7 +74,7 @@
                                             data-toggle="tooltip" data-original-title="Discard" hidden><i class="icon-close" aria-hidden="true"></i></a>
                                             <a href="{{ base_url() }}/edit-school/{{row.qcode}}" class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
                                             data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>
-                                            <a data-id="{{row.qcode}}" class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
+                                            <a data-id="{{row.qcode}}" data-url="{{ base_url() }}" class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove"
                                             data-toggle="tooltip" data-original-title="Remove"><i class="icon-trash" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>

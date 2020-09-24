@@ -79,7 +79,7 @@
                                             <a href="{{base_url()}}/edit-period/{{row.id}}" class="btn btn-sm btn-icon btn-pure btn-default on-default m-r-5 button-edit"
                                             data-toggle="tooltip" data-original-title="Edit Period"><i class="icon-pencil" aria-hidden="true"></i></a>
                                             <button class="btn btn-sm btn-icon btn-pure btn-default on-default button-remove deletePeriod"
-                                            data-id="{{row.id}}" data-toggle="tooltip" data-original-title="Remove Period"><i class="icon-trash" aria-hidden="true"></i></a>
+                                            data-id="{{row.id}}" data-url="{{ base_url() }}" data-toggle="tooltip" data-original-title="Remove Period"><i class="icon-trash" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
 {% endfor %}
@@ -94,7 +94,7 @@
                  <div class="col-lg-5 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="body">
-                        <form name="addPeriodForm" id="addPeriodForm" method="post" action="{{ base_url() }}/apis/periods/create" novalidate>
+                        <form name="addPeriodForm" id="addPeriodForm" method="post" action="{{ base_url() }}/apis/periods/create" novalidate data-url="{{ base_url() }}">
 						<div class="alert alert-warning alert-dismissible" role="alert" id="errorMsgBlock" style="display:none;">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 <i class="fa fa-warning"></i> <span id="errorMsg">Fill up the form to add a period.</span>
@@ -183,7 +183,7 @@
 <script src="{{ base_url() }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="{{ base_url() }}/vendor/jquery-inputmask/jquery.inputmask.bundle.js"></script>
 <script src="{{ base_url() }}/vendor/jquery.maskedinput/jquery.maskedinput.min.js"></script>
-<script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script>
+<!-- <script src="{{ base_url() }}/assets/js/pages/forms/advanced-form-elements.js"></script> -->
 <script src="{{ base_url() }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script> <!-- SweetAlert Plugin Js --> 
 <script type="text/javascript">
 var $demoMaskedInput = $('.demo-masked-input');

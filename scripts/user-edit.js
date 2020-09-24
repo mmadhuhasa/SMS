@@ -5,8 +5,9 @@ UPDATE USER
 ****************************************************/
 $('#updateUserForm').submit(function (e) {
     e.preventDefault();
-	alert(authorization+" => "+$(this).serialize());
-	var form = $('#registrationForm');
+	// alert(authorization+" => "+$(this).serialize());
+  var base_url = $(this).attr('data-url');
+	var form = $('#updateUserForm');
     var data = new FormData(this);
     document.getElementById("updateUserForm").style.display = 'none';
 	document.getElementById("registerOverlay").style.display = 'block';
@@ -15,9 +16,9 @@ $('#updateUserForm').submit(function (e) {
     $.ajax({
         url: $(this).attr('action'),
         type: "POST",
-        data: $(this).serialize(),
-         beforeSend: function(request) {
-               request.setRequestHeader("Authorization", authorization);
+        data: data,    //  $(this).serialize(),
+         beforeSend: function(request) { 
+               request.setRequestHeader("Authorization", setheader.authorization);
              },
 		processData: false, 
         contentType: false, 
@@ -46,8 +47,8 @@ location = base_url+"/manage-schools";
 
 $('#updateStudentForm').submit(function (e) {
     e.preventDefault();
-	alert(authorization+" => "+$(this).serialize());
-	var form = $('#registrationForm');
+	// alert(authorization+" => "+$(this).serialize());
+	var form = $('#updateStudentForm');
     var data = new FormData(this);
     document.getElementById("updateStudentForm").style.display = 'none';
 	document.getElementById("studentOverlay").style.display = 'block';
@@ -56,7 +57,7 @@ $('#updateStudentForm').submit(function (e) {
     $.ajax({
         url: $(this).attr('action'),
         type: "POST",
-        data: $(this).serialize(),
+        data: data,     // $(this).serialize(),
          beforeSend: function(request) {
                request.setRequestHeader("Authorization", authorization);
              },
@@ -88,7 +89,9 @@ location = base_url+"/manage-schools";
 
 $('#updatePassForm').submit(function (e) {
     e.preventDefault();
-	alert(authorization+" => "+$(this).serialize());
+	// alert(authorization+" => "+$(this).serialize());
+  var form = $('#updatePassForm');
+    var data = new FormData(this);
     document.getElementById("updatePassForm").style.display = 'block';
 	document.getElementById("accountOverlay").style.display = 'block';
 	document.getElementById("accountErrorMsgBlock").style.display = 'none';
@@ -96,7 +99,7 @@ $('#updatePassForm').submit(function (e) {
     $.ajax({
         url: $(this).attr('action'),
         type: "POST",
-        data: $(this).serialize(),
+        data: data,   // $(this).serialize(),
          beforeSend: function(request) {
                request.setRequestHeader("Authorization", authorization);
              },

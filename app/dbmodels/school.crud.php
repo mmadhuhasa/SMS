@@ -160,8 +160,8 @@ class SchoolCRUD
 	
   public function isCodeValid($qcode) {
         $stmt = $this->db->prepare("SELECT id from schools WHERE qcode = :qcode");
-  $result = $stmt->execute(array(":qcode"=>$qcode));
-         $editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->execute(array(":qcode"=>$qcode));
+        $editRow=$stmt->fetch(PDO::FETCH_ASSOC);
         return $editRow > 0;
     }
 	
@@ -182,7 +182,7 @@ class SchoolCRUD
   return $result;
  }
  
-  public function getQCodeByID($qcode)
+  public function getQCodeByID($id)
  {
   $stmt = $this->db->prepare("SELECT qcode FROM schools WHERE id=:id");
   $stmt->execute(array(":id"=>$id));

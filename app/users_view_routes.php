@@ -5,9 +5,8 @@
 $app->get('/manage-users', function ($request, $response, $args){
 	require_once("dbmodels/user.crud.php");
 	require_once("dbmodels/utils.crud.php");
-	 $userCRUD = new UserCRUD(getConnection());
-    $utilCRUD = new UtilCRUD(getConnection());
-	//ADMIN ONLY	
+	$userCRUD = new UserCRUD(getConnection());
+    $utilCRUD = new UtilCRUD(getConnection());	
 	/********** SERVER SESSION CHECK  ***********/
 	if(isset($_SESSION["userID"]) && isset($_SESSION["email"]) && isset($_SESSION["api_key"])){
     $thisUser = $userCRUD->getUserByAPIKey($_SESSION["api_key"]);
@@ -175,7 +174,6 @@ $app->get('/manage-users', function ($request, $response, $args){
 
 	$app->get('/manage-students', function (Request $request, Response $response, $args){
 		require_once("dbmodels/user.crud.php");
-		//require __DIR__ . '/../app/dbmodels/user.crud.php';
         $userCRUD = new UserCRUD(getConnection());
         $students = array();
 		$role_id = 3;
@@ -184,8 +182,8 @@ $app->get('/manage-users', function ($request, $response, $args){
 	    if (count($dataArr) > 0) {
 			   foreach ($dataArr as $row) {
 			   $tmp = array();
-			   //$tmp = getStudentDetails($row["id"]);
-			   $tmp = getUserFullProfile($row["id"]);
+			   $tmp = getStudentDetails($row["id"]);
+			   //$tmp = getUserFullProfile($row["id"]);
 			   array_push($students, $tmp);
 			   }
 	    }
@@ -199,5 +197,35 @@ $app->get('/manage-users', function ($request, $response, $args){
 		];
 		return $this->view->render($response, 'list-students.twig', $vars);
 	})->setName('manage-students');
+
+
+ 
+	$app->get('/manage-parents', function (Request $request, Response $response, $args){
+		require_once("dbmodels/user.crud.php");
+        $userCRUD = new UserCRUD(getConnection());
+        $students = array();
+		$role_id = 5;
+		$school_id = 1;
+		$dataArr = $userCRUD->getAllUsers($role_id, $school_id);
+	    if (count($dataArr) > 0) {
+			   foreach ($dataArr as $row) {
+			   $tmp = array();
+			   $tmp = getStudentDetails($row["id"]);
+			   //$tmp = getUserFullProfile($row["id"]);
+			   array_push($students, $tmp);
+			   }
+	    }
+		$vars = [
+			'page' => [
+			'name' => '',
+			'title' => 'Manage Students | Talank SMS',
+			'description' => '',
+			'students' => $students
+			]
+		];
+		return $this->view->render($response, 'list-parents.twig', $vars);
+	})->setName('manage-students');
+
+
 		
 ?>

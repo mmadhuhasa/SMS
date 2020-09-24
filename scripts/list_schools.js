@@ -6,48 +6,49 @@ DELETE SCHOOL
 $('.button-remove').click(function (e) {
     e.preventDefault();
 	var schoolID = $(this).attr("data-id");
-	
+	var base_url = $(this).attr('data-url');
   Swal.fire({
     title: 'Delete School ',
-    text: 'Are you sure you want to delete this class permanently?',
+    text: 'Are you sure that you want to delete this School profile permanently?',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Confirm Delete',
     cancelButtonText: 'No, keep it'
 }).then((result) => {
   if (result.value) {
+	//alert(setheader.authorization);
 	var formData = {'item':schoolID};
     $.ajax({
         url: base_url+"/apis/schools/delete",
         type: "POST",
         data: formData,
         beforeSend: function(request) {
-               request.setRequestHeader("Authorization", authorization);
+               request.setRequestHeader("Authorization", setheader.authorization);
              },
 		dataType: 'json',
         success: function(data) {
-			alert(data.message);
+		//alert(data.message);
 		if(data.error){
-// 		swal({
-//   title: 'Failed To Delete',
-//   html: '<b>'+data.message+'</b>',
-//   type: 'error',
-//   showCancelButton: false,
-//   confirmButtonColor: '#3085d6',
-//   focusConfirm: false
-// });
+Swal.fire({
+				        title: '',
+				        text: data.message,
+				        icon: 'error',
+				        showCancelButton: false,
+				        confirmButtonText: 'okay',
+				  		cancelButtonText: 'false'
+					});  
 		}else{
-// swal({
-//   title: 'Account Deleted',
-//   html: '<b>'+data.message+'</b>',
-//   type: 'success',
-//   showCancelButton: false,
-//   confirmButtonColor: '#3085d6',
-//   focusConfirm: false
-// });
-// setTimeout(function(){
-// window.location.replace(base_url+'/manage-schools');
-// }, 2200);
+Swal.fire({
+				        title: '',
+				        text: data.message,
+				        icon: 'success',
+				        showCancelButton: false,
+				        confirmButtonText: 'okay',
+				  		cancelButtonText: 'false'
+					});  
+ setTimeout(function(){
+ window.location.replace(base_url+'/manage-schools');
+ }, 2200);
 		}
         },
         error: function (xhr, ajaxOptions, thrownError) {
